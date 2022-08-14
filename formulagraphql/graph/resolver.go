@@ -6,7 +6,8 @@ import (
 )
 
 type Resolver struct {
-	client *http.Client
+	client  *http.Client
+	baseURL string
 }
 
 func NewResolver() *Resolver {
@@ -14,5 +15,6 @@ func NewResolver() *Resolver {
 		client: &http.Client{
 			Timeout: 10 * time.Second,
 		},
+		baseURL: "http://ergast.com/api/f1",
 	}
 }

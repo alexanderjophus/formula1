@@ -22,7 +22,7 @@ func (r *queryResolver) ConstructorStandings(ctx context.Context, filter *model.
 	if filter != nil && filter.Round != nil {
 		round = fmt.Sprintf("/%s", *filter.Round)
 	}
-	resp, err := r.client.Get(fmt.Sprintf("http://ergast.com/api/f1/%s%s/constructorStandings.json", *filter.Year, round))
+	resp, err := r.client.Get(fmt.Sprintf("%s/%s%s/constructorStandings.json", r.baseURL, *filter.Year, round))
 	if err != nil {
 		return nil, fmt.Errorf("getting constructor standings from ergast: %w", err)
 	}
@@ -59,7 +59,7 @@ func (r *queryResolver) DriverStandings(ctx context.Context, filter *model.Stand
 	if filter != nil && filter.Round != nil {
 		round = fmt.Sprintf("/%s", *filter.Round)
 	}
-	resp, err := r.client.Get(fmt.Sprintf("http://ergast.com/api/f1/%s%s/driverStandings.json", *filter.Year, round))
+	resp, err := r.client.Get(fmt.Sprintf("%s/%s%s/driverStandings.json", r.baseURL, *filter.Year, round))
 	if err != nil {
 		return nil, fmt.Errorf("getting driver standings from ergast: %w", err)
 	}
@@ -92,7 +92,7 @@ func (r *queryResolver) DriverStandings(ctx context.Context, filter *model.Stand
 }
 
 func (r *queryResolver) Circuits(ctx context.Context, year *string) (*model.CircuitsReport, error) {
-	resp, err := r.client.Get(fmt.Sprintf("http://ergast.com/api/f1/%s/circuits.json", *year))
+	resp, err := r.client.Get(fmt.Sprintf("%s/%s/circuits.json", r.baseURL, *year))
 	if err != nil {
 		return nil, fmt.Errorf("getting circuits from ergast: %w", err)
 	}
@@ -122,7 +122,7 @@ func (r *queryResolver) Circuits(ctx context.Context, year *string) (*model.Circ
 }
 
 func (r *queryResolver) Schedule(ctx context.Context, year *string) (*model.ScheduleReport, error) {
-	resp, err := r.client.Get(fmt.Sprintf("http://ergast.com/api/f1/%s.json", *year))
+	resp, err := r.client.Get(fmt.Sprintf("%s/%s.json", r.baseURL, *year))
 	if err != nil {
 		return nil, fmt.Errorf("getting schedule from ergast: %w", err)
 	}
@@ -152,7 +152,7 @@ func (r *queryResolver) Schedule(ctx context.Context, year *string) (*model.Sche
 }
 
 func (r *queryResolver) LapTimes(ctx context.Context, filter *model.LapTimesFilter) (*model.LapTimesReport, error) {
-	resp, err := r.client.Get(fmt.Sprintf("http://ergast.com/api/f1/%s/%s/laps/%s.json", *filter.Year, *filter.Round, *filter.Lap))
+	resp, err := r.client.Get(fmt.Sprintf("%s/%s/%s/laps/%s.json", r.baseURL, *filter.Year, *filter.Round, *filter.Lap))
 	if err != nil {
 		return nil, fmt.Errorf("getting lap times from ergast: %w", err)
 	}

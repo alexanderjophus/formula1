@@ -10,7 +10,8 @@ Goals:
 To run this
 
 ```sh
-go run formulagraphql/server.go
+cd formulagraphql
+go run server.go
 ```
 
 and open a browser to localhost:8080.
@@ -39,4 +40,4 @@ This should update any resolver function signatures, then modify the resolver fu
 
 ## Notes
 
-This is being actively developed on twitch :)
+This wass being actively developed on twitch (it may come back) :)

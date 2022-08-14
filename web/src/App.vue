@@ -2,7 +2,8 @@
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/constructors">Constructors</router-link> |
-    <router-link to="/drivers">Drivers</router-link>
+    <router-link to="/drivers">Drivers</router-link> |
+    <router-link to="/races">Schedule</router-link>
   </nav>
   <router-view />
 </template>

@@ -1,18 +1,18 @@
 <template>
   <div class="about">
-    <h1>Drivers Standings</h1>
+    <h1>Schedule</h1>
   </div>
-  <Drivers />
+  <Races />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Drivers from "@/components/Drivers.vue";
+import Races from "@/components/Races.vue";
 
 export default defineComponent({
-  name: "DriversView",
+  name: "RacesView",
   components: {
-    Drivers,
+    Races,
   },
 });
 </script>

@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import gql from "graphql-tag";
 import { useQuery } from "@vue/apollo-composable";
 
@@ -36,9 +36,10 @@ const CONSTRUCTORS_QUERY = gql`
 export default {
   name: "Constructors-Component",
   setup() {
+    const initVariables = { year: "current" };
     const { result, loading, error, refetch, variables } = useQuery(
       CONSTRUCTORS_QUERY,
-      { year: "current" }
+      initVariables
     );
     return {
       result,

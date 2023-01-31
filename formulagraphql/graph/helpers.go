@@ -1,11 +1,11 @@
 package graph
 
 import (
-	"github.com/trelore/formula1/formulagraphql/graph/model"
-	"github.com/trelore/formula1/formulagraphql/models/circuits"
-	"github.com/trelore/formula1/formulagraphql/models/constructors"
-	"github.com/trelore/formula1/formulagraphql/models/drivers"
-	"github.com/trelore/formula1/formulagraphql/models/race"
+	"github.com/alexanderjoseph/formula1/formulagraphql/graph/model"
+	"github.com/alexanderjoseph/formula1/formulagraphql/models/circuits"
+	"github.com/alexanderjoseph/formula1/formulagraphql/models/constructors"
+	"github.com/alexanderjoseph/formula1/formulagraphql/models/drivers"
+	"github.com/alexanderjoseph/formula1/formulagraphql/models/race"
 )
 
 func getTeams(in []constructors.ConstructorStandings, limit int) []*model.TeamStanding {

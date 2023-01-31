@@ -9,12 +9,12 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/trelore/formula1/formulagraphql/graph/generated"
-	"github.com/trelore/formula1/formulagraphql/graph/model"
-	"github.com/trelore/formula1/formulagraphql/models/circuits"
-	"github.com/trelore/formula1/formulagraphql/models/constructors"
-	"github.com/trelore/formula1/formulagraphql/models/drivers"
-	"github.com/trelore/formula1/formulagraphql/models/race"
+	"github.com/alexanderjoseph/formula1/formulagraphql/graph/generated"
+	"github.com/alexanderjoseph/formula1/formulagraphql/graph/model"
+	"github.com/alexanderjoseph/formula1/formulagraphql/models/circuits"
+	"github.com/alexanderjoseph/formula1/formulagraphql/models/constructors"
+	"github.com/alexanderjoseph/formula1/formulagraphql/models/drivers"
+	"github.com/alexanderjoseph/formula1/formulagraphql/models/race"
 )
 
 func (r *queryResolver) ConstructorStandings(ctx context.Context, filter *model.StandingsFilter) (*model.ConstructorStandingsReport, error) {

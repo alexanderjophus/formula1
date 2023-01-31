@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: service
-        image: ghcr.io/trelore/formulagraphql:latest
+        image: ghcr.io/alexanderjophus/formulagraphql:latest
         imagePullPolicy: Never
 ---
 apiVersion: apps/v1
@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: service
-        image: ghcr.io/trelore/web:latest
+        image: ghcr.io/alexanderjophus/web:latest
         imagePullPolicy: Never
         env:
           - name: VUE_APP_GRAPHQL_EP

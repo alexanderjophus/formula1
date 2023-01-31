@@ -42,7 +42,7 @@ jobs:
         with:
           context: ./formulagraphql
           push: true
-          tags: ghcr.io/trelore/formulagraphql:latest
+          tags: ghcr.io/alexanderjophus/formulagraphql:latest
           file: formulagraphql/Dockerfile
 
       - name: Build and push (web)
@@ -50,7 +50,7 @@ jobs:
         with:
           context: ./web
           push: true
-          tags: ghcr.io/trelore/web:latest
+          tags: ghcr.io/alexanderjophus/web:latest
           file: web/Dockerfile
 
   deploy-okteto:
@@ -67,7 +67,7 @@ jobs:
     - name: "Activate Namespace"
       uses: okteto/namespace@latest
       with:
-        name: trelore
+        name: alexanderjophus
 
     - name: "Trigger the pipeline"
       uses: okteto/pipeline@latest
@@ -79,22 +79,19 @@ jobs:
     needs: [ deploy-okteto ]
     defaults:
       run:
-        working-directory: e2e-tests
+        working-directory: e2e
     env:
-      BASE_URL: https://webapp-trelore.cloud.okteto.net
+      BASE_URL: https://webapp-alexanderjophus.cloud.okteto.net
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
+    - name: Set up Go
+      uses: actions/setup-go@v2
       with:
-        node-version: '14.x'
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
+        go-version: 1.18
+    - name: Run tests
+      run: go run test.go # should be replaced with a proper test framework
 
   destroy-okteto:
     needs: [ e2e-test ]
@@ -107,7 +104,7 @@ jobs:
     - name: "Activate Namespace"
       uses: okteto/namespace@latest
       with:
-        name: trelore
+        name: alexanderjophus
 
     - name: "Destroy the pipeline"
       uses: okteto/destroy-pipeline@latest

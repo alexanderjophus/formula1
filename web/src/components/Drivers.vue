@@ -4,17 +4,19 @@
   <div id="drivers">
     <p v-if="error">Something went wrong...</p>
     <p v-if="loading">Loading...</p>
-    <p
+    <div
       v-else
       v-for="driver in result.DriverStandings.drivers"
       :key="driver.Driver.code"
+      class="driver-entry"
     >
+      <b>{{ driver.Driver.code }}</b>
       {{ driver.points }}
-      <a v-bind:href="driver.Driver.url"
-        >{{ driver.Driver.familyName.toUpperCase() }},
-        {{ driver.Driver.givenName }}</a
-      >
-    </p>
+      <a v-bind:href="driver.Driver.url">
+        {{ driver.Driver.familyName.toUpperCase() }},
+        {{ driver.Driver.givenName }}
+      </a>
+    </div>
   </div>
 </template>
 

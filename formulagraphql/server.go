@@ -8,10 +8,10 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/alexanderjoseph/formula1/formulagraphql/graph"
+	"github.com/alexanderjoseph/formula1/formulagraphql/graph/generated"
 	"github.com/go-chi/chi"
 	"github.com/rs/cors"
-	"github.com/trelore/formula1/formulagraphql/graph"
-	"github.com/trelore/formula1/formulagraphql/graph/generated"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )

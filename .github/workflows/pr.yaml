@@ -33,7 +33,7 @@ jobs:
     - name: "Trigger the pipeline"
       uses: okteto/deploy-preview@latest
       with:
-        name: ${{ github.event.pull_request.head.ref }}-trelore
+        name: ${{ github.event.pull_request.head.ref }}-alexanderjophus
         timeout: 8m
 
   e2e-test:
@@ -42,7 +42,7 @@ jobs:
       run:
         working-directory: e2e-tests
     env:
-      BASE_URL: https://${{ github.event.pull_request.head.ref }}-trelore.cloud.okteto.net
+      BASE_URL: https://${{ github.event.pull_request.head.ref }}-alexanderjophus.cloud.okteto.net
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -68,4 +68,4 @@ jobs:
     - name: "Destroy the preview"
       uses: okteto/destroy-preview@latest
       with:
-        name: ${{ github.event.pull_request.head.ref }}-trelore
+        name: ${{ github.event.pull_request.head.ref }}-alexanderjophus

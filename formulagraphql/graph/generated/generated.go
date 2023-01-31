@@ -11,7 +11,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
-	"github.com/trelore/formula1/formulagraphql/graph/model"
+	"github.com/alexanderjoseph/formula1/formulagraphql/graph/model"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -828,7 +828,7 @@ func (ec *executionContext) field_Query_ConstructorStandings_args(ctx context.Co
 	var arg0 *model.StandingsFilter
 	if tmp, ok := rawArgs["filter"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("filter"))
-		arg0, err = ec.unmarshalOStandingsFilter2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐStandingsFilter(ctx, tmp)
+		arg0, err = ec.unmarshalOStandingsFilter2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐStandingsFilter(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -843,7 +843,7 @@ func (ec *executionContext) field_Query_DriverStandings_args(ctx context.Context
 	var arg0 *model.StandingsFilter
 	if tmp, ok := rawArgs["filter"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("filter"))
-		arg0, err = ec.unmarshalOStandingsFilter2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐStandingsFilter(ctx, tmp)
+		arg0, err = ec.unmarshalOStandingsFilter2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐStandingsFilter(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -858,7 +858,7 @@ func (ec *executionContext) field_Query_LapTimes_args(ctx context.Context, rawAr
 	var arg0 *model.LapTimesFilter
 	if tmp, ok := rawArgs["filter"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("filter"))
-		arg0, err = ec.unmarshalOLapTimesFilter2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLapTimesFilter(ctx, tmp)
+		arg0, err = ec.unmarshalOLapTimesFilter2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLapTimesFilter(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1060,7 +1060,7 @@ func (ec *executionContext) _Circuit_location(ctx context.Context, field graphql
 	}
 	res := resTmp.(*model.Location)
 	fc.Result = res
-	return ec.marshalOLocation2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLocation(ctx, field.Selections, res)
+	return ec.marshalOLocation2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLocation(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _CircuitsReport_season(ctx context.Context, field graphql.CollectedField, obj *model.CircuitsReport) (ret graphql.Marshaler) {
@@ -1124,7 +1124,7 @@ func (ec *executionContext) _CircuitsReport_circuits(ctx context.Context, field 
 	}
 	res := resTmp.([]*model.Circuit)
 	fc.Result = res
-	return ec.marshalOCircuit2ᚕᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐCircuit(ctx, field.Selections, res)
+	return ec.marshalOCircuit2ᚕᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐCircuit(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Constructor_id(ctx context.Context, field graphql.CollectedField, obj *model.Constructor) (ret graphql.Marshaler) {
@@ -1348,7 +1348,7 @@ func (ec *executionContext) _ConstructorStandingsReport_teams(ctx context.Contex
 	}
 	res := resTmp.([]*model.TeamStanding)
 	fc.Result = res
-	return ec.marshalOTeamStanding2ᚕᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐTeamStanding(ctx, field.Selections, res)
+	return ec.marshalOTeamStanding2ᚕᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐTeamStanding(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Driver_id(ctx context.Context, field graphql.CollectedField, obj *model.Driver) (ret graphql.Marshaler) {
@@ -1732,7 +1732,7 @@ func (ec *executionContext) _DriverStanding_Driver(ctx context.Context, field gr
 	}
 	res := resTmp.(*model.Driver)
 	fc.Result = res
-	return ec.marshalODriver2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriver(ctx, field.Selections, res)
+	return ec.marshalODriver2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriver(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DriverStandingsReport_season(ctx context.Context, field graphql.CollectedField, obj *model.DriverStandingsReport) (ret graphql.Marshaler) {
@@ -1828,7 +1828,7 @@ func (ec *executionContext) _DriverStandingsReport_drivers(ctx context.Context, 
 	}
 	res := resTmp.([]*model.DriverStanding)
 	fc.Result = res
-	return ec.marshalODriverStanding2ᚕᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverStanding(ctx, field.Selections, res)
+	return ec.marshalODriverStanding2ᚕᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverStanding(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Lap_round(ctx context.Context, field graphql.CollectedField, obj *model.Lap) (ret graphql.Marshaler) {
@@ -2052,7 +2052,7 @@ func (ec *executionContext) _Lap_circuit(ctx context.Context, field graphql.Coll
 	}
 	res := resTmp.(*model.Circuit)
 	fc.Result = res
-	return ec.marshalOCircuit2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐCircuit(ctx, field.Selections, res)
+	return ec.marshalOCircuit2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐCircuit(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Lap_timings(ctx context.Context, field graphql.CollectedField, obj *model.Lap) (ret graphql.Marshaler) {
@@ -2084,7 +2084,7 @@ func (ec *executionContext) _Lap_timings(ctx context.Context, field graphql.Coll
 	}
 	res := resTmp.([]*model.Timing)
 	fc.Result = res
-	return ec.marshalOTiming2ᚕᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐTiming(ctx, field.Selections, res)
+	return ec.marshalOTiming2ᚕᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐTiming(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _LapTimesReport_season(ctx context.Context, field graphql.CollectedField, obj *model.LapTimesReport) (ret graphql.Marshaler) {
@@ -2148,7 +2148,7 @@ func (ec *executionContext) _LapTimesReport_laps(ctx context.Context, field grap
 	}
 	res := resTmp.([]*model.Lap)
 	fc.Result = res
-	return ec.marshalOLap2ᚕᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLap(ctx, field.Selections, res)
+	return ec.marshalOLap2ᚕᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLap(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Location_lat(ctx context.Context, field graphql.CollectedField, obj *model.Location) (ret graphql.Marshaler) {
@@ -2315,7 +2315,7 @@ func (ec *executionContext) _Query_ConstructorStandings(ctx context.Context, fie
 	}
 	res := resTmp.(*model.ConstructorStandingsReport)
 	fc.Result = res
-	return ec.marshalOConstructorStandingsReport2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐConstructorStandingsReport(ctx, field.Selections, res)
+	return ec.marshalOConstructorStandingsReport2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐConstructorStandingsReport(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_DriverStandings(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2354,7 +2354,7 @@ func (ec *executionContext) _Query_DriverStandings(ctx context.Context, field gr
 	}
 	res := resTmp.(*model.DriverStandingsReport)
 	fc.Result = res
-	return ec.marshalODriverStandingsReport2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverStandingsReport(ctx, field.Selections, res)
+	return ec.marshalODriverStandingsReport2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverStandingsReport(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_Circuits(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2393,7 +2393,7 @@ func (ec *executionContext) _Query_Circuits(ctx context.Context, field graphql.C
 	}
 	res := resTmp.(*model.CircuitsReport)
 	fc.Result = res
-	return ec.marshalOCircuitsReport2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐCircuitsReport(ctx, field.Selections, res)
+	return ec.marshalOCircuitsReport2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐCircuitsReport(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_Schedule(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2432,7 +2432,7 @@ func (ec *executionContext) _Query_Schedule(ctx context.Context, field graphql.C
 	}
 	res := resTmp.(*model.ScheduleReport)
 	fc.Result = res
-	return ec.marshalOScheduleReport2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐScheduleReport(ctx, field.Selections, res)
+	return ec.marshalOScheduleReport2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐScheduleReport(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_LapTimes(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2471,7 +2471,7 @@ func (ec *executionContext) _Query_LapTimes(ctx context.Context, field graphql.C
 	}
 	res := resTmp.(*model.LapTimesReport)
 	fc.Result = res
-	return ec.marshalOLapTimesReport2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLapTimesReport(ctx, field.Selections, res)
+	return ec.marshalOLapTimesReport2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLapTimesReport(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2734,7 +2734,7 @@ func (ec *executionContext) _Race_circuit(ctx context.Context, field graphql.Col
 	}
 	res := resTmp.(*model.Circuit)
 	fc.Result = res
-	return ec.marshalOCircuit2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐCircuit(ctx, field.Selections, res)
+	return ec.marshalOCircuit2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐCircuit(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _ScheduleReport_season(ctx context.Context, field graphql.CollectedField, obj *model.ScheduleReport) (ret graphql.Marshaler) {
@@ -2798,7 +2798,7 @@ func (ec *executionContext) _ScheduleReport_races(ctx context.Context, field gra
 	}
 	res := resTmp.([]*model.Race)
 	fc.Result = res
-	return ec.marshalORace2ᚕᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐRace(ctx, field.Selections, res)
+	return ec.marshalORace2ᚕᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐRace(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _TeamStanding_position(ctx context.Context, field graphql.CollectedField, obj *model.TeamStanding) (ret graphql.Marshaler) {
@@ -2926,7 +2926,7 @@ func (ec *executionContext) _TeamStanding_team(ctx context.Context, field graphq
 	}
 	res := resTmp.(*model.Constructor)
 	fc.Result = res
-	return ec.marshalOConstructor2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐConstructor(ctx, field.Selections, res)
+	return ec.marshalOConstructor2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐConstructor(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Timing_driverID(ctx context.Context, field graphql.CollectedField, obj *model.Timing) (ret graphql.Marshaler) {
@@ -3071,14 +3071,14 @@ func (ec *executionContext) ___Directive_description(ctx context.Context, field 
 		Object:     "__Directive",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   false,
+		IsMethod:   true,
 		IsResolver: false,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Description, nil
+		return obj.Description(), nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3087,9 +3087,9 @@ func (ec *executionContext) ___Directive_description(ctx context.Context, field 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(*string)
 	fc.Result = res
-	return ec.marshalOString2string(ctx, field.Selections, res)
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___Directive_locations(ctx context.Context, field graphql.CollectedField, obj *introspection.Directive) (ret graphql.Marshaler) {
@@ -3243,14 +3243,14 @@ func (ec *executionContext) ___EnumValue_description(ctx context.Context, field 
 		Object:     "__EnumValue",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   false,
+		IsMethod:   true,
 		IsResolver: false,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Description, nil
+		return obj.Description(), nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3259,9 +3259,9 @@ func (ec *executionContext) ___EnumValue_description(ctx context.Context, field 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(*string)
 	fc.Result = res
-	return ec.marshalOString2string(ctx, field.Selections, res)
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___EnumValue_isDeprecated(ctx context.Context, field graphql.CollectedField, obj *introspection.EnumValue) (ret graphql.Marshaler) {
@@ -3377,14 +3377,14 @@ func (ec *executionContext) ___Field_description(ctx context.Context, field grap
 		Object:     "__Field",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   false,
+		IsMethod:   true,
 		IsResolver: false,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Description, nil
+		return obj.Description(), nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3393,9 +3393,9 @@ func (ec *executionContext) ___Field_description(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(*string)
 	fc.Result = res
-	return ec.marshalOString2string(ctx, field.Selections, res)
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___Field_args(ctx context.Context, field graphql.CollectedField, obj *introspection.Field) (ret graphql.Marshaler) {
@@ -3581,14 +3581,14 @@ func (ec *executionContext) ___InputValue_description(ctx context.Context, field
 		Object:     "__InputValue",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   false,
+		IsMethod:   true,
 		IsResolver: false,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Description, nil
+		return obj.Description(), nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3597,9 +3597,9 @@ func (ec *executionContext) ___InputValue_description(ctx context.Context, field
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(*string)
 	fc.Result = res
-	return ec.marshalOString2string(ctx, field.Selections, res)
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___InputValue_type(ctx context.Context, field graphql.CollectedField, obj *introspection.InputValue) (ret graphql.Marshaler) {
@@ -3656,6 +3656,38 @@ func (ec *executionContext) ___InputValue_defaultValue(ctx context.Context, fiel
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
 		return obj.DefaultValue, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) ___Schema_description(ctx context.Context, field graphql.CollectedField, obj *introspection.Schema) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "__Schema",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Description(), nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3932,9 +3964,9 @@ func (ec *executionContext) ___Type_description(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(*string)
 	fc.Result = res
-	return ec.marshalOString2string(ctx, field.Selections, res)
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___Type_fields(ctx context.Context, field graphql.CollectedField, obj *introspection.Type) (ret graphql.Marshaler) {
@@ -4143,6 +4175,38 @@ func (ec *executionContext) ___Type_ofType(ctx context.Context, field graphql.Co
 	return ec.marshalO__Type2ᚖgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐType(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) ___Type_specifiedByURL(ctx context.Context, field graphql.CollectedField, obj *introspection.Type) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "__Type",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.SpecifiedByURL(), nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
 // endregion **************************** field.gotpl *****************************
 
 // region    **************************** input.gotpl *****************************
@@ -4254,7 +4318,6 @@ var circuitImplementors = []string{"Circuit"}
 
 func (ec *executionContext) _Circuit(ctx context.Context, sel ast.SelectionSet, obj *model.Circuit) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, circuitImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4262,13 +4325,33 @@ func (ec *executionContext) _Circuit(ctx context.Context, sel ast.SelectionSet, 
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Circuit")
 		case "id":
-			out.Values[i] = ec._Circuit_id(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Circuit_id(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "url":
-			out.Values[i] = ec._Circuit_url(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Circuit_url(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "circuitName":
-			out.Values[i] = ec._Circuit_circuitName(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Circuit_circuitName(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "location":
-			out.Values[i] = ec._Circuit_location(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Circuit_location(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4284,7 +4367,6 @@ var circuitsReportImplementors = []string{"CircuitsReport"}
 
 func (ec *executionContext) _CircuitsReport(ctx context.Context, sel ast.SelectionSet, obj *model.CircuitsReport) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, circuitsReportImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4292,9 +4374,19 @@ func (ec *executionContext) _CircuitsReport(ctx context.Context, sel ast.Selecti
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("CircuitsReport")
 		case "season":
-			out.Values[i] = ec._CircuitsReport_season(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._CircuitsReport_season(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "circuits":
-			out.Values[i] = ec._CircuitsReport_circuits(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._CircuitsReport_circuits(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4310,7 +4402,6 @@ var constructorImplementors = []string{"Constructor"}
 
 func (ec *executionContext) _Constructor(ctx context.Context, sel ast.SelectionSet, obj *model.Constructor) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, constructorImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4318,13 +4409,33 @@ func (ec *executionContext) _Constructor(ctx context.Context, sel ast.SelectionS
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Constructor")
 		case "id":
-			out.Values[i] = ec._Constructor_id(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Constructor_id(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "name":
-			out.Values[i] = ec._Constructor_name(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Constructor_name(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "url":
-			out.Values[i] = ec._Constructor_url(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Constructor_url(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "nationality":
-			out.Values[i] = ec._Constructor_nationality(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Constructor_nationality(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4340,7 +4451,6 @@ var constructorStandingsReportImplementors = []string{"ConstructorStandingsRepor
 
 func (ec *executionContext) _ConstructorStandingsReport(ctx context.Context, sel ast.SelectionSet, obj *model.ConstructorStandingsReport) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, constructorStandingsReportImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4348,11 +4458,26 @@ func (ec *executionContext) _ConstructorStandingsReport(ctx context.Context, sel
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("ConstructorStandingsReport")
 		case "season":
-			out.Values[i] = ec._ConstructorStandingsReport_season(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._ConstructorStandingsReport_season(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "round":
-			out.Values[i] = ec._ConstructorStandingsReport_round(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._ConstructorStandingsReport_round(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "teams":
-			out.Values[i] = ec._ConstructorStandingsReport_teams(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._ConstructorStandingsReport_teams(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4368,7 +4493,6 @@ var driverImplementors = []string{"Driver"}
 
 func (ec *executionContext) _Driver(ctx context.Context, sel ast.SelectionSet, obj *model.Driver) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, driverImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4376,21 +4500,61 @@ func (ec *executionContext) _Driver(ctx context.Context, sel ast.SelectionSet, o
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Driver")
 		case "id":
-			out.Values[i] = ec._Driver_id(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Driver_id(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "number":
-			out.Values[i] = ec._Driver_number(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Driver_number(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "code":
-			out.Values[i] = ec._Driver_code(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Driver_code(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "url":
-			out.Values[i] = ec._Driver_url(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Driver_url(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "givenName":
-			out.Values[i] = ec._Driver_givenName(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Driver_givenName(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "familyName":
-			out.Values[i] = ec._Driver_familyName(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Driver_familyName(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "dateOfBirth":
-			out.Values[i] = ec._Driver_dateOfBirth(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Driver_dateOfBirth(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "nationality":
-			out.Values[i] = ec._Driver_nationality(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Driver_nationality(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4406,7 +4570,6 @@ var driverStandingImplementors = []string{"DriverStanding"}
 
 func (ec *executionContext) _DriverStanding(ctx context.Context, sel ast.SelectionSet, obj *model.DriverStanding) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, driverStandingImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4414,13 +4577,33 @@ func (ec *executionContext) _DriverStanding(ctx context.Context, sel ast.Selecti
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("DriverStanding")
 		case "position":
-			out.Values[i] = ec._DriverStanding_position(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._DriverStanding_position(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "points":
-			out.Values[i] = ec._DriverStanding_points(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._DriverStanding_points(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "wins":
-			out.Values[i] = ec._DriverStanding_wins(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._DriverStanding_wins(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "Driver":
-			out.Values[i] = ec._DriverStanding_Driver(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._DriverStanding_Driver(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4436,7 +4619,6 @@ var driverStandingsReportImplementors = []string{"DriverStandingsReport"}
 
 func (ec *executionContext) _DriverStandingsReport(ctx context.Context, sel ast.SelectionSet, obj *model.DriverStandingsReport) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, driverStandingsReportImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4444,11 +4626,26 @@ func (ec *executionContext) _DriverStandingsReport(ctx context.Context, sel ast.
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("DriverStandingsReport")
 		case "season":
-			out.Values[i] = ec._DriverStandingsReport_season(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._DriverStandingsReport_season(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "round":
-			out.Values[i] = ec._DriverStandingsReport_round(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._DriverStandingsReport_round(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "drivers":
-			out.Values[i] = ec._DriverStandingsReport_drivers(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._DriverStandingsReport_drivers(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4464,7 +4661,6 @@ var lapImplementors = []string{"Lap"}
 
 func (ec *executionContext) _Lap(ctx context.Context, sel ast.SelectionSet, obj *model.Lap) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, lapImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4472,21 +4668,61 @@ func (ec *executionContext) _Lap(ctx context.Context, sel ast.SelectionSet, obj 
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Lap")
 		case "round":
-			out.Values[i] = ec._Lap_round(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Lap_round(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "lap":
-			out.Values[i] = ec._Lap_lap(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Lap_lap(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "url":
-			out.Values[i] = ec._Lap_url(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Lap_url(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "raceName":
-			out.Values[i] = ec._Lap_raceName(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Lap_raceName(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "date":
-			out.Values[i] = ec._Lap_date(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Lap_date(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "time":
-			out.Values[i] = ec._Lap_time(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Lap_time(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "circuit":
-			out.Values[i] = ec._Lap_circuit(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Lap_circuit(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "timings":
-			out.Values[i] = ec._Lap_timings(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Lap_timings(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4502,7 +4738,6 @@ var lapTimesReportImplementors = []string{"LapTimesReport"}
 
 func (ec *executionContext) _LapTimesReport(ctx context.Context, sel ast.SelectionSet, obj *model.LapTimesReport) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, lapTimesReportImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4510,9 +4745,19 @@ func (ec *executionContext) _LapTimesReport(ctx context.Context, sel ast.Selecti
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("LapTimesReport")
 		case "season":
-			out.Values[i] = ec._LapTimesReport_season(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._LapTimesReport_season(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "laps":
-			out.Values[i] = ec._LapTimesReport_laps(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._LapTimesReport_laps(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4528,7 +4773,6 @@ var locationImplementors = []string{"Location"}
 
 func (ec *executionContext) _Location(ctx context.Context, sel ast.SelectionSet, obj *model.Location) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, locationImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4536,13 +4780,33 @@ func (ec *executionContext) _Location(ctx context.Context, sel ast.SelectionSet,
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Location")
 		case "lat":
-			out.Values[i] = ec._Location_lat(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Location_lat(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "long":
-			out.Values[i] = ec._Location_long(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Location_long(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "locality":
-			out.Values[i] = ec._Location_locality(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Location_locality(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "country":
-			out.Values[i] = ec._Location_country(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Location_country(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4558,7 +4822,6 @@ var queryImplementors = []string{"Query"}
 
 func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, queryImplementors)
-
 	ctx = graphql.WithFieldContext(ctx, &graphql.FieldContext{
 		Object: "Query",
 	})
@@ -4566,12 +4829,18 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
+		innerCtx := graphql.WithRootFieldContext(ctx, &graphql.RootFieldContext{
+			Object: field.Name,
+			Field:  field,
+		})
+
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Query")
 		case "ConstructorStandings":
 			field := field
-			out.Concurrently(i, func() (res graphql.Marshaler) {
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				defer func() {
 					if r := recover(); r != nil {
 						ec.Error(ctx, ec.Recover(ctx, r))
@@ -4579,10 +4848,19 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 				}()
 				res = ec._Query_ConstructorStandings(ctx, field)
 				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
 			})
 		case "DriverStandings":
 			field := field
-			out.Concurrently(i, func() (res graphql.Marshaler) {
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				defer func() {
 					if r := recover(); r != nil {
 						ec.Error(ctx, ec.Recover(ctx, r))
@@ -4590,10 +4868,19 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 				}()
 				res = ec._Query_DriverStandings(ctx, field)
 				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
 			})
 		case "Circuits":
 			field := field
-			out.Concurrently(i, func() (res graphql.Marshaler) {
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				defer func() {
 					if r := recover(); r != nil {
 						ec.Error(ctx, ec.Recover(ctx, r))
@@ -4601,10 +4888,19 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 				}()
 				res = ec._Query_Circuits(ctx, field)
 				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
 			})
 		case "Schedule":
 			field := field
-			out.Concurrently(i, func() (res graphql.Marshaler) {
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				defer func() {
 					if r := recover(); r != nil {
 						ec.Error(ctx, ec.Recover(ctx, r))
@@ -4612,10 +4908,19 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 				}()
 				res = ec._Query_Schedule(ctx, field)
 				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
 			})
 		case "LapTimes":
 			field := field
-			out.Concurrently(i, func() (res graphql.Marshaler) {
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				defer func() {
 					if r := recover(); r != nil {
 						ec.Error(ctx, ec.Recover(ctx, r))
@@ -4623,11 +4928,29 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 				}()
 				res = ec._Query_LapTimes(ctx, field)
 				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
 			})
 		case "__type":
-			out.Values[i] = ec._Query___type(ctx, field)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Query___type(ctx, field)
+			}
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
+
 		case "__schema":
-			out.Values[i] = ec._Query___schema(ctx, field)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Query___schema(ctx, field)
+			}
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4643,7 +4966,6 @@ var raceImplementors = []string{"Race"}
 
 func (ec *executionContext) _Race(ctx context.Context, sel ast.SelectionSet, obj *model.Race) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, raceImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4651,17 +4973,47 @@ func (ec *executionContext) _Race(ctx context.Context, sel ast.SelectionSet, obj
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Race")
 		case "round":
-			out.Values[i] = ec._Race_round(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Race_round(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "url":
-			out.Values[i] = ec._Race_url(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Race_url(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "raceName":
-			out.Values[i] = ec._Race_raceName(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Race_raceName(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "date":
-			out.Values[i] = ec._Race_date(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Race_date(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "time":
-			out.Values[i] = ec._Race_time(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Race_time(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "circuit":
-			out.Values[i] = ec._Race_circuit(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Race_circuit(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4677,7 +5029,6 @@ var scheduleReportImplementors = []string{"ScheduleReport"}
 
 func (ec *executionContext) _ScheduleReport(ctx context.Context, sel ast.SelectionSet, obj *model.ScheduleReport) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, scheduleReportImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4685,9 +5036,19 @@ func (ec *executionContext) _ScheduleReport(ctx context.Context, sel ast.Selecti
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("ScheduleReport")
 		case "season":
-			out.Values[i] = ec._ScheduleReport_season(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._ScheduleReport_season(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "races":
-			out.Values[i] = ec._ScheduleReport_races(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._ScheduleReport_races(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4703,7 +5064,6 @@ var teamStandingImplementors = []string{"TeamStanding"}
 
 func (ec *executionContext) _TeamStanding(ctx context.Context, sel ast.SelectionSet, obj *model.TeamStanding) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, teamStandingImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4711,13 +5071,33 @@ func (ec *executionContext) _TeamStanding(ctx context.Context, sel ast.Selection
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("TeamStanding")
 		case "position":
-			out.Values[i] = ec._TeamStanding_position(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._TeamStanding_position(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "points":
-			out.Values[i] = ec._TeamStanding_points(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._TeamStanding_points(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "wins":
-			out.Values[i] = ec._TeamStanding_wins(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._TeamStanding_wins(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "team":
-			out.Values[i] = ec._TeamStanding_team(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._TeamStanding_team(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4733,7 +5113,6 @@ var timingImplementors = []string{"Timing"}
 
 func (ec *executionContext) _Timing(ctx context.Context, sel ast.SelectionSet, obj *model.Timing) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, timingImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4741,11 +5120,26 @@ func (ec *executionContext) _Timing(ctx context.Context, sel ast.SelectionSet, o
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Timing")
 		case "driverID":
-			out.Values[i] = ec._Timing_driverID(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Timing_driverID(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "position":
-			out.Values[i] = ec._Timing_position(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Timing_position(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "time":
-			out.Values[i] = ec._Timing_time(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Timing_time(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4761,7 +5155,6 @@ var __DirectiveImplementors = []string{"__Directive"}
 
 func (ec *executionContext) ___Directive(ctx context.Context, sel ast.SelectionSet, obj *introspection.Directive) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, __DirectiveImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4769,24 +5162,49 @@ func (ec *executionContext) ___Directive(ctx context.Context, sel ast.SelectionS
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("__Directive")
 		case "name":
-			out.Values[i] = ec.___Directive_name(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Directive_name(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
 		case "description":
-			out.Values[i] = ec.___Directive_description(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Directive_description(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "locations":
-			out.Values[i] = ec.___Directive_locations(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Directive_locations(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
 		case "args":
-			out.Values[i] = ec.___Directive_args(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Directive_args(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
 		case "isRepeatable":
-			out.Values[i] = ec.___Directive_isRepeatable(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Directive_isRepeatable(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
@@ -4805,7 +5223,6 @@ var __EnumValueImplementors = []string{"__EnumValue"}
 
 func (ec *executionContext) ___EnumValue(ctx context.Context, sel ast.SelectionSet, obj *introspection.EnumValue) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, __EnumValueImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4813,19 +5230,39 @@ func (ec *executionContext) ___EnumValue(ctx context.Context, sel ast.SelectionS
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("__EnumValue")
 		case "name":
-			out.Values[i] = ec.___EnumValue_name(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___EnumValue_name(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
 		case "description":
-			out.Values[i] = ec.___EnumValue_description(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___EnumValue_description(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "isDeprecated":
-			out.Values[i] = ec.___EnumValue_isDeprecated(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___EnumValue_isDeprecated(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
 		case "deprecationReason":
-			out.Values[i] = ec.___EnumValue_deprecationReason(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___EnumValue_deprecationReason(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4841,7 +5278,6 @@ var __FieldImplementors = []string{"__Field"}
 
 func (ec *executionContext) ___Field(ctx context.Context, sel ast.SelectionSet, obj *introspection.Field) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, __FieldImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4849,29 +5285,59 @@ func (ec *executionContext) ___Field(ctx context.Context, sel ast.SelectionSet, 
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("__Field")
 		case "name":
-			out.Values[i] = ec.___Field_name(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Field_name(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
 		case "description":
-			out.Values[i] = ec.___Field_description(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Field_description(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "args":
-			out.Values[i] = ec.___Field_args(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Field_args(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
 		case "type":
-			out.Values[i] = ec.___Field_type(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Field_type(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
 		case "isDeprecated":
-			out.Values[i] = ec.___Field_isDeprecated(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Field_isDeprecated(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
 		case "deprecationReason":
-			out.Values[i] = ec.___Field_deprecationReason(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Field_deprecationReason(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4887,7 +5353,6 @@ var __InputValueImplementors = []string{"__InputValue"}
 
 func (ec *executionContext) ___InputValue(ctx context.Context, sel ast.SelectionSet, obj *introspection.InputValue) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, __InputValueImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4895,19 +5360,39 @@ func (ec *executionContext) ___InputValue(ctx context.Context, sel ast.Selection
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("__InputValue")
 		case "name":
-			out.Values[i] = ec.___InputValue_name(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___InputValue_name(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
 		case "description":
-			out.Values[i] = ec.___InputValue_description(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___InputValue_description(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "type":
-			out.Values[i] = ec.___InputValue_type(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___InputValue_type(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
 		case "defaultValue":
-			out.Values[i] = ec.___InputValue_defaultValue(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___InputValue_defaultValue(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4923,29 +5408,60 @@ var __SchemaImplementors = []string{"__Schema"}
 
 func (ec *executionContext) ___Schema(ctx context.Context, sel ast.SelectionSet, obj *introspection.Schema) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, __SchemaImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("__Schema")
+		case "description":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Schema_description(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "types":
-			out.Values[i] = ec.___Schema_types(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Schema_types(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
 		case "queryType":
-			out.Values[i] = ec.___Schema_queryType(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Schema_queryType(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
 		case "mutationType":
-			out.Values[i] = ec.___Schema_mutationType(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Schema_mutationType(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "subscriptionType":
-			out.Values[i] = ec.___Schema_subscriptionType(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Schema_subscriptionType(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "directives":
-			out.Values[i] = ec.___Schema_directives(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Schema_directives(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
@@ -4964,7 +5480,6 @@ var __TypeImplementors = []string{"__Type"}
 
 func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, obj *introspection.Type) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, __TypeImplementors)
-
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
@@ -4972,26 +5487,78 @@ func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, o
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("__Type")
 		case "kind":
-			out.Values[i] = ec.___Type_kind(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Type_kind(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
 		case "name":
-			out.Values[i] = ec.___Type_name(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Type_name(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "description":
-			out.Values[i] = ec.___Type_description(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Type_description(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "fields":
-			out.Values[i] = ec.___Type_fields(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Type_fields(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "interfaces":
-			out.Values[i] = ec.___Type_interfaces(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Type_interfaces(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "possibleTypes":
-			out.Values[i] = ec.___Type_possibleTypes(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Type_possibleTypes(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "enumValues":
-			out.Values[i] = ec.___Type_enumValues(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Type_enumValues(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "inputFields":
-			out.Values[i] = ec.___Type_inputFields(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Type_inputFields(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "ofType":
-			out.Values[i] = ec.___Type_ofType(ctx, field, obj)
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Type_ofType(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+		case "specifiedByURL":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Type_specifiedByURL(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -5103,11 +5670,7 @@ func (ec *executionContext) marshalN__DirectiveLocation2string(ctx context.Conte
 func (ec *executionContext) unmarshalN__DirectiveLocation2ᚕstringᚄ(ctx context.Context, v interface{}) ([]string, error) {
 	var vSlice []interface{}
 	if v != nil {
-		if tmp1, ok := v.([]interface{}); ok {
-			vSlice = tmp1
-		} else {
-			vSlice = []interface{}{v}
-		}
+		vSlice = graphql.CoerceList(v)
 	}
 	var err error
 	res := make([]string, len(vSlice))
@@ -5300,7 +5863,8 @@ func (ec *executionContext) unmarshalOBoolean2bool(ctx context.Context, v interf
 }
 
 func (ec *executionContext) marshalOBoolean2bool(ctx context.Context, sel ast.SelectionSet, v bool) graphql.Marshaler {
-	return graphql.MarshalBoolean(v)
+	res := graphql.MarshalBoolean(v)
+	return res
 }
 
 func (ec *executionContext) unmarshalOBoolean2ᚖbool(ctx context.Context, v interface{}) (*bool, error) {
@@ -5315,10 +5879,11 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	if v == nil {
 		return graphql.Null
 	}
-	return graphql.MarshalBoolean(*v)
+	res := graphql.MarshalBoolean(*v)
+	return res
 }
 
-func (ec *executionContext) marshalOCircuit2ᚕᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐCircuit(ctx context.Context, sel ast.SelectionSet, v []*model.Circuit) graphql.Marshaler {
+func (ec *executionContext) marshalOCircuit2ᚕᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐCircuit(ctx context.Context, sel ast.SelectionSet, v []*model.Circuit) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -5345,7 +5910,7 @@ func (ec *executionContext) marshalOCircuit2ᚕᚖgithubᚗcomᚋtreloreᚋformu
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOCircuit2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐCircuit(ctx, sel, v[i])
+			ret[i] = ec.marshalOCircuit2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐCircuit(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -5359,42 +5924,42 @@ func (ec *executionContext) marshalOCircuit2ᚕᚖgithubᚗcomᚋtreloreᚋformu
 	return ret
 }
 
-func (ec *executionContext) marshalOCircuit2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐCircuit(ctx context.Context, sel ast.SelectionSet, v *model.Circuit) graphql.Marshaler {
+func (ec *executionContext) marshalOCircuit2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐCircuit(ctx context.Context, sel ast.SelectionSet, v *model.Circuit) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Circuit(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOCircuitsReport2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐCircuitsReport(ctx context.Context, sel ast.SelectionSet, v *model.CircuitsReport) graphql.Marshaler {
+func (ec *executionContext) marshalOCircuitsReport2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐCircuitsReport(ctx context.Context, sel ast.SelectionSet, v *model.CircuitsReport) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._CircuitsReport(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOConstructor2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐConstructor(ctx context.Context, sel ast.SelectionSet, v *model.Constructor) graphql.Marshaler {
+func (ec *executionContext) marshalOConstructor2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐConstructor(ctx context.Context, sel ast.SelectionSet, v *model.Constructor) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Constructor(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOConstructorStandingsReport2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐConstructorStandingsReport(ctx context.Context, sel ast.SelectionSet, v *model.ConstructorStandingsReport) graphql.Marshaler {
+func (ec *executionContext) marshalOConstructorStandingsReport2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐConstructorStandingsReport(ctx context.Context, sel ast.SelectionSet, v *model.ConstructorStandingsReport) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._ConstructorStandingsReport(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalODriver2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriver(ctx context.Context, sel ast.SelectionSet, v *model.Driver) graphql.Marshaler {
+func (ec *executionContext) marshalODriver2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriver(ctx context.Context, sel ast.SelectionSet, v *model.Driver) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Driver(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalODriverStanding2ᚕᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverStanding(ctx context.Context, sel ast.SelectionSet, v []*model.DriverStanding) graphql.Marshaler {
+func (ec *executionContext) marshalODriverStanding2ᚕᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverStanding(ctx context.Context, sel ast.SelectionSet, v []*model.DriverStanding) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -5421,7 +5986,7 @@ func (ec *executionContext) marshalODriverStanding2ᚕᚖgithubᚗcomᚋtrelore�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalODriverStanding2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverStanding(ctx, sel, v[i])
+			ret[i] = ec.marshalODriverStanding2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverStanding(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -5435,14 +6000,14 @@ func (ec *executionContext) marshalODriverStanding2ᚕᚖgithubᚗcomᚋtrelore�
 	return ret
 }
 
-func (ec *executionContext) marshalODriverStanding2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverStanding(ctx context.Context, sel ast.SelectionSet, v *model.DriverStanding) graphql.Marshaler {
+func (ec *executionContext) marshalODriverStanding2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverStanding(ctx context.Context, sel ast.SelectionSet, v *model.DriverStanding) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._DriverStanding(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalODriverStandingsReport2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverStandingsReport(ctx context.Context, sel ast.SelectionSet, v *model.DriverStandingsReport) graphql.Marshaler {
+func (ec *executionContext) marshalODriverStandingsReport2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverStandingsReport(ctx context.Context, sel ast.SelectionSet, v *model.DriverStandingsReport) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -5461,10 +6026,11 @@ func (ec *executionContext) marshalOInt2ᚖint(ctx context.Context, sel ast.Sele
 	if v == nil {
 		return graphql.Null
 	}
-	return graphql.MarshalInt(*v)
+	res := graphql.MarshalInt(*v)
+	return res
 }
 
-func (ec *executionContext) marshalOLap2ᚕᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLap(ctx context.Context, sel ast.SelectionSet, v []*model.Lap) graphql.Marshaler {
+func (ec *executionContext) marshalOLap2ᚕᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLap(ctx context.Context, sel ast.SelectionSet, v []*model.Lap) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -5491,7 +6057,7 @@ func (ec *executionContext) marshalOLap2ᚕᚖgithubᚗcomᚋtreloreᚋformula1�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOLap2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLap(ctx, sel, v[i])
+			ret[i] = ec.marshalOLap2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLap(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -5505,14 +6071,14 @@ func (ec *executionContext) marshalOLap2ᚕᚖgithubᚗcomᚋtreloreᚋformula1�
 	return ret
 }
 
-func (ec *executionContext) marshalOLap2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLap(ctx context.Context, sel ast.SelectionSet, v *model.Lap) graphql.Marshaler {
+func (ec *executionContext) marshalOLap2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLap(ctx context.Context, sel ast.SelectionSet, v *model.Lap) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Lap(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOLapTimesFilter2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLapTimesFilter(ctx context.Context, v interface{}) (*model.LapTimesFilter, error) {
+func (ec *executionContext) unmarshalOLapTimesFilter2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLapTimesFilter(ctx context.Context, v interface{}) (*model.LapTimesFilter, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -5520,21 +6086,21 @@ func (ec *executionContext) unmarshalOLapTimesFilter2ᚖgithubᚗcomᚋtrelore�
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOLapTimesReport2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLapTimesReport(ctx context.Context, sel ast.SelectionSet, v *model.LapTimesReport) graphql.Marshaler {
+func (ec *executionContext) marshalOLapTimesReport2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLapTimesReport(ctx context.Context, sel ast.SelectionSet, v *model.LapTimesReport) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._LapTimesReport(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOLocation2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLocation(ctx context.Context, sel ast.SelectionSet, v *model.Location) graphql.Marshaler {
+func (ec *executionContext) marshalOLocation2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLocation(ctx context.Context, sel ast.SelectionSet, v *model.Location) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Location(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalORace2ᚕᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐRace(ctx context.Context, sel ast.SelectionSet, v []*model.Race) graphql.Marshaler {
+func (ec *executionContext) marshalORace2ᚕᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐRace(ctx context.Context, sel ast.SelectionSet, v []*model.Race) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -5561,7 +6127,7 @@ func (ec *executionContext) marshalORace2ᚕᚖgithubᚗcomᚋtreloreᚋformula1
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalORace2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐRace(ctx, sel, v[i])
+			ret[i] = ec.marshalORace2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐRace(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -5575,35 +6141,26 @@ func (ec *executionContext) marshalORace2ᚕᚖgithubᚗcomᚋtreloreᚋformula1
 	return ret
 }
 
-func (ec *executionContext) marshalORace2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐRace(ctx context.Context, sel ast.SelectionSet, v *model.Race) graphql.Marshaler {
+func (ec *executionContext) marshalORace2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐRace(ctx context.Context, sel ast.SelectionSet, v *model.Race) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Race(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOScheduleReport2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐScheduleReport(ctx context.Context, sel ast.SelectionSet, v *model.ScheduleReport) graphql.Marshaler {
+func (ec *executionContext) marshalOScheduleReport2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐScheduleReport(ctx context.Context, sel ast.SelectionSet, v *model.ScheduleReport) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._ScheduleReport(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOStandingsFilter2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐStandingsFilter(ctx context.Context, v interface{}) (*model.StandingsFilter, error) {
+func (ec *executionContext) unmarshalOStandingsFilter2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐStandingsFilter(ctx context.Context, v interface{}) (*model.StandingsFilter, error) {
 	if v == nil {
 		return nil, nil
 	}
 	res, err := ec.unmarshalInputStandingsFilter(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) unmarshalOString2string(ctx context.Context, v interface{}) (string, error) {
-	res, err := graphql.UnmarshalString(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalOString2string(ctx context.Context, sel ast.SelectionSet, v string) graphql.Marshaler {
-	return graphql.MarshalString(v)
 }
 
 func (ec *executionContext) unmarshalOString2ᚖstring(ctx context.Context, v interface{}) (*string, error) {
@@ -5618,10 +6175,11 @@ func (ec *executionContext) marshalOString2ᚖstring(ctx context.Context, sel as
 	if v == nil {
 		return graphql.Null
 	}
-	return graphql.MarshalString(*v)
+	res := graphql.MarshalString(*v)
+	return res
 }
 
-func (ec *executionContext) marshalOTeamStanding2ᚕᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐTeamStanding(ctx context.Context, sel ast.SelectionSet, v []*model.TeamStanding) graphql.Marshaler {
+func (ec *executionContext) marshalOTeamStanding2ᚕᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐTeamStanding(ctx context.Context, sel ast.SelectionSet, v []*model.TeamStanding) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -5648,7 +6206,7 @@ func (ec *executionContext) marshalOTeamStanding2ᚕᚖgithubᚗcomᚋtreloreᚋ
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOTeamStanding2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐTeamStanding(ctx, sel, v[i])
+			ret[i] = ec.marshalOTeamStanding2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐTeamStanding(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -5662,14 +6220,14 @@ func (ec *executionContext) marshalOTeamStanding2ᚕᚖgithubᚗcomᚋtreloreᚋ
 	return ret
 }
 
-func (ec *executionContext) marshalOTeamStanding2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐTeamStanding(ctx context.Context, sel ast.SelectionSet, v *model.TeamStanding) graphql.Marshaler {
+func (ec *executionContext) marshalOTeamStanding2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐTeamStanding(ctx context.Context, sel ast.SelectionSet, v *model.TeamStanding) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._TeamStanding(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOTiming2ᚕᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐTiming(ctx context.Context, sel ast.SelectionSet, v []*model.Timing) graphql.Marshaler {
+func (ec *executionContext) marshalOTiming2ᚕᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐTiming(ctx context.Context, sel ast.SelectionSet, v []*model.Timing) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -5696,7 +6254,7 @@ func (ec *executionContext) marshalOTiming2ᚕᚖgithubᚗcomᚋtreloreᚋformul
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOTiming2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐTiming(ctx, sel, v[i])
+			ret[i] = ec.marshalOTiming2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐTiming(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -5710,7 +6268,7 @@ func (ec *executionContext) marshalOTiming2ᚕᚖgithubᚗcomᚋtreloreᚋformul
 	return ret
 }
 
-func (ec *executionContext) marshalOTiming2ᚖgithubᚗcomᚋtreloreᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐTiming(ctx context.Context, sel ast.SelectionSet, v *model.Timing) graphql.Marshaler {
+func (ec *executionContext) marshalOTiming2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐTiming(ctx context.Context, sel ast.SelectionSet, v *model.Timing) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}

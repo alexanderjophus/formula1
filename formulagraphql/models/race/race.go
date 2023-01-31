@@ -1,6 +1,6 @@
 package race
 
-import "github.com/trelore/formula1/formulagraphql/models/circuits"
+import "github.com/alexanderjoseph/formula1/formulagraphql/models/circuits"
 
 type Resp struct {
 	MRData MRData `json:"MRData"`

@@ -52,6 +52,7 @@ type Circuit {
   url: String
   circuitName: String
   location: Location
+  img: String
 }
 
 type Location {

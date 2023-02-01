@@ -11,7 +11,7 @@ To run this
 
 ```sh
 cd formulagraphql
-go run server.go
+go run main.go
 ```
 
 and open a browser to localhost:8080.

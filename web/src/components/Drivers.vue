@@ -4,21 +4,48 @@
   <div id="drivers">
     <p v-if="error">Something went wrong...</p>
     <p v-if="loading">Loading...</p>
-    <div
-      v-else
-      v-for="driver in result.DriverStandings.drivers"
-      :key="driver.Driver.code"
-      class="driver-entry"
-    >
-      <b>{{ driver.Driver.code }}</b>
-      {{ driver.points }}
-      <a v-bind:href="driver.Driver.url">
-        {{ driver.Driver.familyName.toUpperCase() }},
-        {{ driver.Driver.givenName }}
-      </a>
-    </div>
+    <v-table v-else>
+      <thead>
+        <tr>
+          <th>Position</th>
+          <th>Code</th>
+          <th>Driver</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(driver, index) in result.DriverStandings.drivers"
+          :key="index"
+        >
+          <td>{{ index + 1 }}</td>
+          <td>
+            <b>
+              {{ driver.Driver.code }}
+            </b>
+          </td>
+          <td>
+            <a :href="driver.Driver.url" target="_blank">
+              {{ driver.Driver.givenName }} {{ driver.Driver.familyName }}
+            </a>
+          </td>
+          <td>{{ driver.points }}</td>
+        </tr>
+      </tbody>
+    </v-table>
   </div>
 </template>
+
+<style scoped>
+#drivers {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+</style>
 
 <script lang="ts">
 import gql from "graphql-tag";

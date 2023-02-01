@@ -1,6 +1,9 @@
 package graph
 
 import (
+	"encoding/json"
+	"net/http"
+
 	"github.com/alexanderjoseph/formula1/formulagraphql/graph/model"
 	"github.com/alexanderjoseph/formula1/formulagraphql/models/circuits"
 	"github.com/alexanderjoseph/formula1/formulagraphql/models/constructors"
@@ -66,10 +69,50 @@ func getCircuits(in []circuits.Circuits) []*model.Circuit {
 }
 
 func getCircuit(circuit circuits.Circuits) *model.Circuit {
+	req, err := http.NewRequest("GET", "http://en.wikipedia.org/w/api.php", nil)
+	if err != nil {
+		panic(err) // do error handling properly
+	}
+	// http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=
+	q := req.URL.Query()
+	q.Add("action", "query")
+	q.Add("prop", "pageimages")
+	q.Add("format", "json")
+	q.Add("piprop", "original")
+	q.Add("titles", circuit.CircuitName)
+	req.URL.RawQuery = q.Encode()
+	resp, err := http.Get(req.URL.String())
+	if err != nil {
+		panic(err) // do error handling properly
+	}
+	defer resp.Body.Close()
+
+	// {"batchcomplete":"","query":{"normalized":[{"from":"Nathalis_iole","to":"Nathalis iole"}],"pages":{"20209834":{"pageid":20209834,"ns":0,"title":"Nathalis iole","original":{"source":"https://upload.wikimedia.org/wikipedia/commons/2/2f/Dainty_Sulphur_Megan_McCarty16.jpg","width":1237,"height":733}}}}}
+	var imgResp struct {
+		Query struct {
+			Pages map[string]struct {
+				Original struct {
+					Source string `json:"source"`
+				} `json:"original"`
+			} `json:"pages"`
+		} `json:"query"`
+	}
+	if err := json.NewDecoder(resp.Body).Decode(&imgResp); err != nil {
+		panic(err) // do error handling properly
+	}
+
+	imgPages := imgResp.Query.Pages
+	var imgURL string
+	for _, imgPage := range imgPages {
+		imgURL = imgPage.Original.Source
+		break // there's only one page in here
+	}
+
 	return &model.Circuit{
 		ID:          &circuit.CircuitID,
 		URL:         &circuit.URL,
 		CircuitName: &circuit.CircuitName,
+		Img:         &imgURL,
 		Location: &model.Location{
 			Lat:      &circuit.Location.Lat,
 			Long:     &circuit.Location.Long,
@@ -83,6 +126,7 @@ func getRaces(in []race.Race) []*model.Race {
 	ret := []*model.Race{}
 	for i := range in {
 		race := in[i]
+		// get img from wikipedia
 		ret = append(ret, &model.Race{
 			Round:    &race.Round,
 			URL:      &race.URL,

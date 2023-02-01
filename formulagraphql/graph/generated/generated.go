@@ -44,6 +44,7 @@ type ComplexityRoot struct {
 	Circuit struct {
 		CircuitName func(childComplexity int) int
 		ID          func(childComplexity int) int
+		Img         func(childComplexity int) int
 		Location    func(childComplexity int) int
 		URL         func(childComplexity int) int
 	}
@@ -185,6 +186,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Circuit.ID(childComplexity), true
+
+	case "Circuit.img":
+		if e.complexity.Circuit.Img == nil {
+			break
+		}
+
+		return e.complexity.Circuit.Img(childComplexity), true
 
 	case "Circuit.location":
 		if e.complexity.Circuit.Location == nil {
@@ -735,6 +743,7 @@ type Circuit {
   url: String
   circuitName: String
   location: Location
+  img: String
 }
 
 type Location {
@@ -1061,6 +1070,38 @@ func (ec *executionContext) _Circuit_location(ctx context.Context, field graphql
 	res := resTmp.(*model.Location)
 	fc.Result = res
 	return ec.marshalOLocation2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐLocation(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Circuit_img(ctx context.Context, field graphql.CollectedField, obj *model.Circuit) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Circuit",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Img, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _CircuitsReport_season(ctx context.Context, field graphql.CollectedField, obj *model.CircuitsReport) (ret graphql.Marshaler) {
@@ -4348,6 +4389,13 @@ func (ec *executionContext) _Circuit(ctx context.Context, sel ast.SelectionSet, 
 		case "location":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Circuit_location(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+		case "img":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Circuit_img(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)

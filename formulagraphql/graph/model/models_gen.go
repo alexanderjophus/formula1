@@ -7,6 +7,7 @@ type Circuit struct {
 	URL         *string   `json:"url"`
 	CircuitName *string   `json:"circuitName"`
 	Location    *Location `json:"location"`
+	Img         *string   `json:"img"`
 }
 
 type CircuitsReport struct {

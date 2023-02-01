@@ -4,15 +4,42 @@
   <div id="constructors">
     <p v-if="error">Something went wrong...</p>
     <p v-if="loading">Loading...</p>
-    <p
-      v-else
-      v-for="team in result.ConstructorStandings.teams"
-      :key="team.team.id"
-    >
-      {{ team.points }} <a v-bind:href="team.team.url">{{ team.team.name }}</a>
-    </p>
+    <v-table v-else>
+      <thead>
+        <tr>
+          <th>Position</th>
+          <th>Team</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(team, index) in result.ConstructorStandings.teams"
+          :key="index"
+        >
+          <td>{{ index + 1 }}</td>
+          <td>
+            <a :href="team.team.url" target="_blank">
+              {{ team.team.name }}
+            </a>
+          </td>
+          <td>{{ team.points }}</td>
+        </tr>
+      </tbody>
+    </v-table>
   </div>
 </template>
+
+<style scoped>
+#constructors {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+</style>
 
 <script lang="ts">
 import gql from "graphql-tag";

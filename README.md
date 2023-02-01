@@ -7,14 +7,13 @@ Goals:
 
 ## Running
 
-To run this
+### Backend
 
 ```sh
-cd formulagraphql
-go run main.go
+go run formulagraphql/main.go
 ```
 
-and open a browser to localhost:8080.
+Open a browser to localhost:8080.
 
 Try a payload of 
 
@@ -33,6 +32,22 @@ query {
 }
 ```
 
+### Frontend
+
+```sh
+cd frontend
+yarn install
+yarn serve
+```
+
+Open a browser to localhost:8081.
+
+### Tests
+
+```sh
+go test ./...
+```
+
 ## Hacking
 
 Modify the `graph/schema.graphqls` file, and run `go run github.com/99designs/gqlgen generate`.
@@ -40,4 +55,4 @@ This should update any resolver function signatures, then modify the resolver fu
 
 ## Notes
 
-This wass being actively developed on twitch (it may come back) :)
+This was being actively developed on twitch (it may come back) :)

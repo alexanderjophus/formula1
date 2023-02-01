@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"sync"
 
 	"github.com/alexanderjoseph/formula1/formulagraphql/graph/generated"
 	"github.com/alexanderjoseph/formula1/formulagraphql/graph/model"
@@ -15,6 +16,7 @@ import (
 	"github.com/alexanderjoseph/formula1/formulagraphql/models/constructors"
 	"github.com/alexanderjoseph/formula1/formulagraphql/models/drivers"
 	"github.com/alexanderjoseph/formula1/formulagraphql/models/race"
+	"github.com/alexanderjoseph/formula1/formulagraphql/models/raceresults"
 )
 
 func (r *queryResolver) ConstructorStandings(ctx context.Context, filter *model.StandingsFilter) (*model.ConstructorStandingsReport, error) {
@@ -89,6 +91,89 @@ func (r *queryResolver) DriverStandings(ctx context.Context, filter *model.Stand
 	}
 
 	return ret, nil
+}
+
+func (r *queryResolver) DriversSeasonalRecords(ctx context.Context, filter *model.StandingsFilter) (*model.DriverGraphReport, error) {
+	// get the schedule for the season
+	resp, err := r.client.Get(fmt.Sprintf("%s/%s.json", r.baseURL, *filter.Year))
+	if err != nil {
+		return nil, fmt.Errorf("getting schedule from ergast: %w", err)
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+	}
+
+	var cr race.Resp
+	err = json.NewDecoder(resp.Body).Decode(&cr)
+	if err != nil {
+		return nil, fmt.Errorf("decoding response: %w", err)
+	}
+
+	if len(cr.MRData.RaceTable.Races) == 0 {
+		return nil, fmt.Errorf("schedule not found")
+	}
+
+	drivers := make(map[string]*model.DriverGraph)
+
+	// iterate through ever race of a season and get the results for each driver
+	for _, race := range cr.MRData.RaceTable.Races {
+		resp, err := r.client.Get(fmt.Sprintf("%s/%s/%s/results.json", r.baseURL, *filter.Year, race.Round))
+		if err != nil {
+			return nil, fmt.Errorf("getting driver standings from ergast: %w", err)
+		}
+
+		if resp.StatusCode != http.StatusOK {
+			return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+		}
+
+		var rr raceresults.Resp
+		err = json.NewDecoder(resp.Body).Decode(&rr)
+		if err != nil {
+			return nil, fmt.Errorf("decoding response: %w", err)
+		}
+
+		wg := sync.WaitGroup{}
+		for _, result := range rr.MRData.RaceTable.Races[0].Results {
+			wg.Add(1)
+			func(result raceresults.Results) {
+				defer wg.Done()
+				if drivers[result.Driver.DriverID] == nil {
+					drivers[result.Driver.DriverID] = &model.DriverGraph{
+						Records: []*model.Record{},
+					}
+				}
+				drivers[result.Driver.DriverID].Records = append(drivers[result.Driver.DriverID].Records, &model.Record{
+					Round:    &race.Round,
+					Points:   &result.Points,
+					Position: &result.Position,
+				})
+				if drivers[result.Driver.DriverID].Driver == nil {
+					drivers[result.Driver.DriverID].Driver = &model.Driver{
+						ID:          &result.Driver.DriverID,
+						Number:      &result.Driver.PermanentNumber,
+						Code:        &result.Driver.Code,
+						URL:         &result.Driver.URL,
+						GivenName:   &result.Driver.GivenName,
+						FamilyName:  &result.Driver.FamilyName,
+						DateOfBirth: &result.Driver.DateOfBirth,
+						Nationality: &result.Driver.Nationality,
+					}
+				}
+			}(result)
+		}
+		wg.Wait()
+	}
+
+	retDrivers := make([]*model.DriverGraph, 0)
+	for _, driver := range drivers {
+		retDrivers = append(retDrivers, driver)
+	}
+
+	return &model.DriverGraphReport{
+		Season:  filter.Year,
+		Drivers: retDrivers,
+	}, nil
 }
 
 func (r *queryResolver) Circuits(ctx context.Context, year *string) (*model.CircuitsReport, error) {

@@ -42,6 +42,22 @@ type Driver {
   nationality: String
 }
 
+type DriverGraphReport {
+  season: String
+  drivers: [DriverGraph]
+}
+
+type DriverGraph {
+  driver: Driver
+  records: [Record]
+}
+
+type Record {
+  round: String
+  position: String
+  points: String
+}
+
 type CircuitsReport {
   season: String
   circuits: [Circuit]
@@ -113,6 +129,7 @@ input LapTimesFilter {
 type Query {
   ConstructorStandings(filter: StandingsFilter = {year: "current", top: -1}): ConstructorStandingsReport
   DriverStandings(filter: StandingsFilter = {year: "current", top: -1}): DriverStandingsReport
+  DriversSeasonalRecords(filter: StandingsFilter = {year: "current", top: -1}): DriverGraphReport
   Circuits(year: String = current): CircuitsReport
   Schedule(year: String = current): ScheduleReport
   LapTimes(filter: LapTimesFilter = {year: "current", round: "1", lap: "1"}): LapTimesReport

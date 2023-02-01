@@ -78,6 +78,16 @@ type ComplexityRoot struct {
 		URL         func(childComplexity int) int
 	}
 
+	DriverGraph struct {
+		Driver  func(childComplexity int) int
+		Records func(childComplexity int) int
+	}
+
+	DriverGraphReport struct {
+		Drivers func(childComplexity int) int
+		Season  func(childComplexity int) int
+	}
+
 	DriverStanding struct {
 		Driver   func(childComplexity int) int
 		Points   func(childComplexity int) int
@@ -115,11 +125,12 @@ type ComplexityRoot struct {
 	}
 
 	Query struct {
-		Circuits             func(childComplexity int, year *string) int
-		ConstructorStandings func(childComplexity int, filter *model.StandingsFilter) int
-		DriverStandings      func(childComplexity int, filter *model.StandingsFilter) int
-		LapTimes             func(childComplexity int, filter *model.LapTimesFilter) int
-		Schedule             func(childComplexity int, year *string) int
+		Circuits               func(childComplexity int, year *string) int
+		ConstructorStandings   func(childComplexity int, filter *model.StandingsFilter) int
+		DriverStandings        func(childComplexity int, filter *model.StandingsFilter) int
+		DriversSeasonalRecords func(childComplexity int, filter *model.StandingsFilter) int
+		LapTimes               func(childComplexity int, filter *model.LapTimesFilter) int
+		Schedule               func(childComplexity int, year *string) int
 	}
 
 	Race struct {
@@ -129,6 +140,12 @@ type ComplexityRoot struct {
 		Round    func(childComplexity int) int
 		Time     func(childComplexity int) int
 		URL      func(childComplexity int) int
+	}
+
+	Record struct {
+		Points   func(childComplexity int) int
+		Position func(childComplexity int) int
+		Round    func(childComplexity int) int
 	}
 
 	ScheduleReport struct {
@@ -153,6 +170,7 @@ type ComplexityRoot struct {
 type QueryResolver interface {
 	ConstructorStandings(ctx context.Context, filter *model.StandingsFilter) (*model.ConstructorStandingsReport, error)
 	DriverStandings(ctx context.Context, filter *model.StandingsFilter) (*model.DriverStandingsReport, error)
+	DriversSeasonalRecords(ctx context.Context, filter *model.StandingsFilter) (*model.DriverGraphReport, error)
 	Circuits(ctx context.Context, year *string) (*model.CircuitsReport, error)
 	Schedule(ctx context.Context, year *string) (*model.ScheduleReport, error)
 	LapTimes(ctx context.Context, filter *model.LapTimesFilter) (*model.LapTimesReport, error)
@@ -326,6 +344,34 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Driver.URL(childComplexity), true
+
+	case "DriverGraph.driver":
+		if e.complexity.DriverGraph.Driver == nil {
+			break
+		}
+
+		return e.complexity.DriverGraph.Driver(childComplexity), true
+
+	case "DriverGraph.records":
+		if e.complexity.DriverGraph.Records == nil {
+			break
+		}
+
+		return e.complexity.DriverGraph.Records(childComplexity), true
+
+	case "DriverGraphReport.drivers":
+		if e.complexity.DriverGraphReport.Drivers == nil {
+			break
+		}
+
+		return e.complexity.DriverGraphReport.Drivers(childComplexity), true
+
+	case "DriverGraphReport.season":
+		if e.complexity.DriverGraphReport.Season == nil {
+			break
+		}
+
+		return e.complexity.DriverGraphReport.Season(childComplexity), true
 
 	case "DriverStanding.Driver":
 		if e.complexity.DriverStanding.Driver == nil {
@@ -510,6 +556,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Query.DriverStandings(childComplexity, args["filter"].(*model.StandingsFilter)), true
 
+	case "Query.DriversSeasonalRecords":
+		if e.complexity.Query.DriversSeasonalRecords == nil {
+			break
+		}
+
+		args, err := ec.field_Query_DriversSeasonalRecords_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.DriversSeasonalRecords(childComplexity, args["filter"].(*model.StandingsFilter)), true
+
 	case "Query.LapTimes":
 		if e.complexity.Query.LapTimes == nil {
 			break
@@ -575,6 +633,27 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Race.URL(childComplexity), true
+
+	case "Record.points":
+		if e.complexity.Record.Points == nil {
+			break
+		}
+
+		return e.complexity.Record.Points(childComplexity), true
+
+	case "Record.position":
+		if e.complexity.Record.Position == nil {
+			break
+		}
+
+		return e.complexity.Record.Position(childComplexity), true
+
+	case "Record.round":
+		if e.complexity.Record.Round == nil {
+			break
+		}
+
+		return e.complexity.Record.Round(childComplexity), true
 
 	case "ScheduleReport.races":
 		if e.complexity.ScheduleReport.Races == nil {
@@ -733,6 +812,22 @@ type Driver {
   nationality: String
 }
 
+type DriverGraphReport {
+  season: String
+  drivers: [DriverGraph]
+}
+
+type DriverGraph {
+  driver: Driver
+  records: [Record]
+}
+
+type Record {
+  round: String
+  position: String
+  points: String
+}
+
 type CircuitsReport {
   season: String
   circuits: [Circuit]
@@ -804,6 +899,7 @@ input LapTimesFilter {
 type Query {
   ConstructorStandings(filter: StandingsFilter = {year: "current", top: -1}): ConstructorStandingsReport
   DriverStandings(filter: StandingsFilter = {year: "current", top: -1}): DriverStandingsReport
+  DriversSeasonalRecords(filter: StandingsFilter = {year: "current", top: -1}): DriverGraphReport
   Circuits(year: String = current): CircuitsReport
   Schedule(year: String = current): ScheduleReport
   LapTimes(filter: LapTimesFilter = {year: "current", round: "1", lap: "1"}): LapTimesReport
@@ -847,6 +943,21 @@ func (ec *executionContext) field_Query_ConstructorStandings_args(ctx context.Co
 }
 
 func (ec *executionContext) field_Query_DriverStandings_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 *model.StandingsFilter
+	if tmp, ok := rawArgs["filter"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("filter"))
+		arg0, err = ec.unmarshalOStandingsFilter2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐStandingsFilter(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["filter"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_DriversSeasonalRecords_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 *model.StandingsFilter
@@ -1648,6 +1759,134 @@ func (ec *executionContext) _Driver_nationality(ctx context.Context, field graph
 	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _DriverGraph_driver(ctx context.Context, field graphql.CollectedField, obj *model.DriverGraph) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "DriverGraph",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Driver, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*model.Driver)
+	fc.Result = res
+	return ec.marshalODriver2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriver(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _DriverGraph_records(ctx context.Context, field graphql.CollectedField, obj *model.DriverGraph) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "DriverGraph",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Records, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*model.Record)
+	fc.Result = res
+	return ec.marshalORecord2ᚕᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐRecord(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _DriverGraphReport_season(ctx context.Context, field graphql.CollectedField, obj *model.DriverGraphReport) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "DriverGraphReport",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Season, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _DriverGraphReport_drivers(ctx context.Context, field graphql.CollectedField, obj *model.DriverGraphReport) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "DriverGraphReport",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Drivers, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*model.DriverGraph)
+	fc.Result = res
+	return ec.marshalODriverGraph2ᚕᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverGraph(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _DriverStanding_position(ctx context.Context, field graphql.CollectedField, obj *model.DriverStanding) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -2398,6 +2637,45 @@ func (ec *executionContext) _Query_DriverStandings(ctx context.Context, field gr
 	return ec.marshalODriverStandingsReport2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverStandingsReport(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Query_DriversSeasonalRecords(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Query_DriversSeasonalRecords_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().DriversSeasonalRecords(rctx, args["filter"].(*model.StandingsFilter))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*model.DriverGraphReport)
+	fc.Result = res
+	return ec.marshalODriverGraphReport2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverGraphReport(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Query_Circuits(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -2776,6 +3054,102 @@ func (ec *executionContext) _Race_circuit(ctx context.Context, field graphql.Col
 	res := resTmp.(*model.Circuit)
 	fc.Result = res
 	return ec.marshalOCircuit2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐCircuit(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Record_round(ctx context.Context, field graphql.CollectedField, obj *model.Record) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Record",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Round, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Record_position(ctx context.Context, field graphql.CollectedField, obj *model.Record) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Record",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Position, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Record_points(ctx context.Context, field graphql.CollectedField, obj *model.Record) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Record",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Points, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _ScheduleReport_season(ctx context.Context, field graphql.CollectedField, obj *model.ScheduleReport) (ret graphql.Marshaler) {
@@ -4614,6 +4988,76 @@ func (ec *executionContext) _Driver(ctx context.Context, sel ast.SelectionSet, o
 	return out
 }
 
+var driverGraphImplementors = []string{"DriverGraph"}
+
+func (ec *executionContext) _DriverGraph(ctx context.Context, sel ast.SelectionSet, obj *model.DriverGraph) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, driverGraphImplementors)
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("DriverGraph")
+		case "driver":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._DriverGraph_driver(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+		case "records":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._DriverGraph_records(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var driverGraphReportImplementors = []string{"DriverGraphReport"}
+
+func (ec *executionContext) _DriverGraphReport(ctx context.Context, sel ast.SelectionSet, obj *model.DriverGraphReport) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, driverGraphReportImplementors)
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("DriverGraphReport")
+		case "season":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._DriverGraphReport_season(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+		case "drivers":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._DriverGraphReport_drivers(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
 var driverStandingImplementors = []string{"DriverStanding"}
 
 func (ec *executionContext) _DriverStanding(ctx context.Context, sel ast.SelectionSet, obj *model.DriverStanding) graphql.Marshaler {
@@ -4925,6 +5369,26 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
+		case "DriversSeasonalRecords":
+			field := field
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_DriversSeasonalRecords(ctx, field)
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
+			})
 		case "Circuits":
 			field := field
 
@@ -5058,6 +5522,48 @@ func (ec *executionContext) _Race(ctx context.Context, sel ast.SelectionSet, obj
 		case "circuit":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Race_circuit(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var recordImplementors = []string{"Record"}
+
+func (ec *executionContext) _Record(ctx context.Context, sel ast.SelectionSet, obj *model.Record) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, recordImplementors)
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("Record")
+		case "round":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Record_round(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+		case "position":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Record_position(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+		case "points":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Record_points(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -6007,6 +6513,61 @@ func (ec *executionContext) marshalODriver2ᚖgithubᚗcomᚋalexanderjosephᚋf
 	return ec._Driver(ctx, sel, v)
 }
 
+func (ec *executionContext) marshalODriverGraph2ᚕᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverGraph(ctx context.Context, sel ast.SelectionSet, v []*model.DriverGraph) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalODriverGraph2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverGraph(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+
+	return ret
+}
+
+func (ec *executionContext) marshalODriverGraph2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverGraph(ctx context.Context, sel ast.SelectionSet, v *model.DriverGraph) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._DriverGraph(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalODriverGraphReport2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverGraphReport(ctx context.Context, sel ast.SelectionSet, v *model.DriverGraphReport) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._DriverGraphReport(ctx, sel, v)
+}
+
 func (ec *executionContext) marshalODriverStanding2ᚕᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐDriverStanding(ctx context.Context, sel ast.SelectionSet, v []*model.DriverStanding) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
@@ -6194,6 +6755,54 @@ func (ec *executionContext) marshalORace2ᚖgithubᚗcomᚋalexanderjosephᚋfor
 		return graphql.Null
 	}
 	return ec._Race(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalORecord2ᚕᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐRecord(ctx context.Context, sel ast.SelectionSet, v []*model.Record) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalORecord2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐRecord(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+
+	return ret
+}
+
+func (ec *executionContext) marshalORecord2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐRecord(ctx context.Context, sel ast.SelectionSet, v *model.Record) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._Record(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalOScheduleReport2ᚖgithubᚗcomᚋalexanderjosephᚋformula1ᚋformulagraphqlᚋgraphᚋmodelᚐScheduleReport(ctx context.Context, sel ast.SelectionSet, v *model.ScheduleReport) graphql.Marshaler {

@@ -39,6 +39,16 @@ type Driver struct {
 	Nationality *string `json:"nationality"`
 }
 
+type DriverGraph struct {
+	Driver  *Driver   `json:"driver"`
+	Records []*Record `json:"records"`
+}
+
+type DriverGraphReport struct {
+	Season  *string        `json:"season"`
+	Drivers []*DriverGraph `json:"drivers"`
+}
+
 type DriverStanding struct {
 	Position *string `json:"position"`
 	Points   *string `json:"points"`
@@ -88,6 +98,12 @@ type Race struct {
 	Date     *string  `json:"date"`
 	Time     *string  `json:"time"`
 	Circuit  *Circuit `json:"circuit"`
+}
+
+type Record struct {
+	Round    *string `json:"round"`
+	Position *string `json:"position"`
+	Points   *string `json:"points"`
 }
 
 type ScheduleReport struct {

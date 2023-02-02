@@ -3,7 +3,7 @@
 Experimental play with GraphQL - needs major refactor
 
 Goals:
-- Transform the Formula 1 API into a graphQL API
+- Transform the Formula 1 ergast API into a graphQL API
 
 ## Running
 

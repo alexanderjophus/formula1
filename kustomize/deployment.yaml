@@ -39,4 +39,4 @@ spec:
         imagePullPolicy: Never
         env:
           - name: VUE_APP_GRAPHQL_EP
-            value: "http://formulagraphql:8080/query"
+            value: "http://formulagraphql-alexanderjophus:8080/query"

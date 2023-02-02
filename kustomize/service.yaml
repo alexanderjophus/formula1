@@ -4,6 +4,8 @@ metadata:
   name: formulagraphql
   labels:
     app: formulagraphql
+  annotations:
+    dev.okteto.com/auto-ingress: "formulagraphql"
 spec:
   ports:
   - port: 8080

@@ -1,0 +1,14 @@
+[package]
+name = "new_web"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dioxus = "0.4.0"
+dioxus-router = "0.4.1"
+dioxus-web = "0.4.0"
+graphql_client = { version = "0.13.0", features = ["reqwest"] }
+reqwest = "0.11.22"
+serde = "1.0.190"

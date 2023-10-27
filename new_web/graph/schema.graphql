@@ -1,0 +1,141 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type ConstructorStandingsReport {
+  season: String
+  round: String
+  teams: [TeamStanding]
+}
+
+type TeamStanding {
+  position: String
+  points: String
+  wins: String
+  team: Constructor
+}
+
+type Constructor {
+  id: String
+  name: String
+  url: String
+  nationality: String
+}
+
+type DriverStandingsReport {
+  season: String
+  round: String
+  drivers: [DriverStanding]
+}
+
+type DriverStanding {
+  position: String
+  points: String
+  wins: String
+  Driver: Driver
+}
+
+type Driver {
+  id: String
+  number: String
+  code: String
+  url: String
+  givenName: String
+  familyName: String
+  dateOfBirth: String
+  nationality: String
+}
+
+type DriverGraphReport {
+  season: String
+  drivers: [DriverGraph]
+}
+
+type DriverGraph {
+  driver: Driver
+  records: [Record]
+}
+
+type Record {
+  round: String
+  position: String
+  points: String
+}
+
+type CircuitsReport {
+  season: String
+  circuits: [Circuit]
+}
+
+type Circuit {
+  id: String
+  url: String
+  circuitName: String
+  location: Location
+  img: String
+}
+
+type Location {
+  lat: String
+  long: String
+  locality: String
+  country: String
+}
+
+type ScheduleReport {
+  season: String
+  races: [Race]
+}
+
+type Race {
+  round: String
+  url: String
+  raceName: String
+  date: String
+  time: String
+  circuit: Circuit
+}
+
+type LapTimesReport {
+  season: String
+  laps: [Lap]
+}
+
+type Lap {
+  round: String
+  lap: String
+  url: String
+  raceName: String
+  date: String
+  time: String
+  circuit: Circuit
+  timings: [Timing]
+}
+
+type Timing {
+  driverID: String
+  position: String
+  time: String
+}
+
+input StandingsFilter {
+  year: String = current
+  round: String
+  top: Int = -1
+}
+
+input LapTimesFilter {
+  year: String = current
+  round: String = "1"
+  lap: String = "1"
+}
+
+type Query {
+  ConstructorStandings(filter: StandingsFilter = {year: "current", top: -1}): ConstructorStandingsReport
+  DriverStandings(filter: StandingsFilter = {year: "current", top: -1}): DriverStandingsReport
+  DriversSeasonalRecords(filter: StandingsFilter = {year: "current", top: -1}): DriverGraphReport
+  Circuits(year: String = current): CircuitsReport
+  Schedule(year: String = current): ScheduleReport
+  LapTimes(filter: LapTimesFilter = {year: "current", round: "1", lap: "1"}): LapTimesReport
+}

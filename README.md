@@ -35,7 +35,7 @@ query {
 ### Frontend
 
 ```sh
-cd frontend
+cd web
 yarn install
 yarn serve
 ```

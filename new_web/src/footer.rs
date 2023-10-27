@@ -3,6 +3,10 @@ use dioxus::prelude::*;
 #[inline_props]
 pub fn Footer(cx: Scope) -> Element {
     render! {
+        script {
+            src: "https://kit.fontawesome.com/e04bfc6d26.js",
+            crossorigin: "anonymous",
+        }
         footer {
             position: "relative",
             bottom: "0",

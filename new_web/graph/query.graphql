@@ -41,3 +41,17 @@ query Circuits($year: String!) {
         }
     }
 }
+query DriversGraph($year: String!) {
+    DriversSeasonalRecords(filter: { year: $year }) {
+        season
+        drivers {
+            driver {
+                code
+            }
+            records {
+                round
+                points
+            }
+        }
+    }
+}

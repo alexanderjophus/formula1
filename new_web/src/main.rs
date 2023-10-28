@@ -1,7 +1,7 @@
 #![allow(non_snake_case)]
-// import the prelude to get access to the `rsx!` macro and the `Scope` and `Element` types
 use dioxus::prelude::*;
 use dioxus_router::prelude::*;
+use log::LevelFilter;
 
 mod circuits;
 use circuits::CircuitsComponent;
@@ -14,7 +14,7 @@ use home::Home;
 mod footer;
 
 fn main() {
-    // launch the web app
+    dioxus_logger::init(LevelFilter::Info).expect("failed to init logger");
     dioxus_web::launch(App);
 }
 

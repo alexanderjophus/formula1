@@ -18,54 +18,6 @@ jobs:
       - name: Test backend
         run: cd formulagraphql && go test -v ./...
 
-  build-publish:
-    runs-on: ubuntu-latest
-    needs: [ unit-test ]
-    steps:
-      # checkout code
-      - uses: actions/checkout@v2
-      # build model, build binary
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.21
-
-      # docker login and push
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push (formulagraphql)
-        uses: docker/build-push-action@v2
-        with:
-          context: ./formulagraphql
-          push: true
-          tags: ghcr.io/alexanderjophus/formulagraphql:latest
-          file: formulagraphql/Dockerfile
-
-  deploy-graphql:
-    runs-on: ubuntu-latest
-    needs: [ build-publish ]
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-
-    steps:
-    - uses: 'actions/checkout@v3'
-
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v1'
-      with:
-        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
-
-    - id: 'deploy'
-      uses: 'google-github-actions/deploy-cloudrun@v1'
-      with:
-        service: 'grapqhl-service'
-        image: 'gghcr.io/alexanderjophus/formulagraphql:latest'
-
   deploy-frontend:
     runs-on: ubuntu-latest
     needs: [ unit-test ]
@@ -76,16 +28,110 @@ jobs:
           toolchain: stable
           override: true
           target: wasm32-unknown-unknown
+      - uses: cargo-bins/cargo-binstall@main
       - uses: Swatinem/rust-cache@v1
       - name: Install CLI
-        run: cargo install dioxus-cli --locked
+        run: cargo binstall --no-confirm dioxus-cli --locked --force
       - uses: actions/checkout@v2
       - name: Build
-        run: cd web && dx build --release && cargo run --release
+        run: cd web && dx build --release
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.3
         with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: site # The folder the action should deploy.
+          branch: gh-pages
+          folder: web/site
           target-folder: .
-          clean: false # don't scrub site
+          clean: false
+
+  build-graphql:
+    needs: [ unit-test ]
+    runs-on: ubuntu-latest #run this workflow on ubuntu instance
+    permissions: #make sure we add permission to read and write packages
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4 #checkouts your repo, so this workflow can access it
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and export
+        uses: docker/build-push-action@v5
+        with:
+          context: ./formulagraphql
+          tags: formulagraphql:latest
+          outputs: type=docker,dest=/tmp/formulagraphql.tar
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: formulagraphql
+          path: /tmp/formulagraphql.tar
+
+  push-graphql-to-ghcr:
+    needs: [ build-graphql ]
+    runs-on: ubuntu-latest #run this workflow on ubuntu instance
+    permissions: #make sure we add permission to read the package
+      contents: read
+    steps:
+      - name: Log in to GHCR
+        env:
+            REGISTRY: ghcr.io #create env called REGISTRY
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+            registry: ${{ env.REGISTRY }} #parse REGISTRY env value to here. Make sure it is correctly stating ghcr.io
+            username: ${{ github.actor }} #this will be our github account
+            password: ${{ secrets.CR_PAT }} #parse the value of repository secret called CR_PAT that we have created earlier
+      - name: Extract metadata (tags, labels) for Docker GHCR
+        env:
+          REGISTRY: ghcr.io
+          IMAGE_NAME: ${{ github.repository }}
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} #create ghcr image format within as id called meta
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: formulagraphql
+          path: /tmp
+      - name: Push image
+        env: 
+          IMAGE_NAME: ${{ github.repository }}
+        run: |
+          docker load --input /tmp/formulagraphql.tar
+          docker tag formulagraphql:latest ghcr.io/$IMAGE_NAME:latest 
+          docker push ghcr.io/$IMAGE_NAME:latest 
+
+  push-graphql-to-gcr:
+    needs: [ build-graphql ]
+    runs-on: ubuntu-latest #run this workflow on ubuntu instance
+    permissions: #make sure we add permission to read the package
+      contents: read
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: formulagraphql
+          path: /tmp
+      - name: Load image
+        run: |
+          docker load --input /tmp/formulagraphql.tar
+      - name: Login to GCR
+        env:
+          PROJECT_ID: f1graph
+        uses: google-github-actions/setup-gcloud@v0.3.0 #checkouts GCR repo, so this workflow can access it
+        with:
+          service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }} #parse the value of repository secret called SERVICE_ACCOUNT_KEY that we have created earlier
+          project_id: ${{ env.PROJECT_ID }} #parse the value of env called PROJECT_ID
+          export_default_credentials: true
+      - name: Configure Docker Client
+        run:  |-
+          gcloud auth configure-docker --quiet
+        
+      - name: Push Docker Image to Container Registry GCR
+        env: 
+          IMAGE_NAME: formulagraphql
+          PROJECT_ID: f1graph
+        #tag docker image to gcr image format then push to gcr
+        run: |-
+          docker tag $IMAGE_NAME:latest gcr.io/$PROJECT_ID/$IMAGE_NAME:latest 
+          docker push gcr.io/$PROJECT_ID/$IMAGE_NAME:latest 

@@ -1,0 +1,57 @@
+query Constructors($year: String!) {
+    ConstructorStandings(filter: { year: $year }) {
+        teams {
+            points
+            position
+            team {
+                id
+                name
+                url
+            }
+        }
+    }
+}
+query Drivers($year: String!) {
+    DriverStandings(filter: { year: $year }) {
+        drivers {
+            points
+            position
+            Driver {
+                code
+                givenName
+                familyName
+                url
+            }
+        }
+    }
+}
+query Circuits($year: String!) {
+    Schedule(year: $year) {
+        season
+        races {
+            round
+            url
+            raceName
+            date
+            time
+            circuit {
+                img
+                circuitName
+            }
+        }
+    }
+}
+query DriversGraph($year: String!) {
+    DriversSeasonalRecords(filter: { year: $year }) {
+        season
+        drivers {
+            driver {
+                code
+            }
+            records {
+                round
+                points
+            }
+        }
+    }
+}

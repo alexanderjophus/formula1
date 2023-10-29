@@ -35,12 +35,10 @@ query {
 ### Frontend
 
 ```sh
-cd frontend
-yarn install
-yarn serve
+dx serve --port 8090
 ```
 
-Open a browser to localhost:8081.
+Open a browser to [localhost](http://localhost:8090)
 
 ### Tests
 

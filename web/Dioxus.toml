@@ -1,0 +1,37 @@
+[application]
+
+# dioxus project name
+name = "Formula 1 GraphQL Experiment"
+
+# default platform
+# you can also use `dioxus serve/build --platform XXX` to use other platform
+# value: web | desktop
+default_platform = "web"
+
+# Web `build` & `serve` dist path
+out_dir = "site"
+
+[web.app]
+
+# HTML title tag content
+title = "Formula 1 GraphQL Experiment"
+
+# include `assets` in web platform
+[web.resource]
+
+# CSS style file
+style = ["/tailwind.css"]
+
+# Javascript code file
+script = []
+
+[web.resource.dev]
+
+# Javascript code file
+# serve: [dev-server] only
+script = []
+
+[web.watcher]
+
+watch_path = ["src"]
+index_on_404 = true

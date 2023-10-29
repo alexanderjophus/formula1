@@ -1,7 +1,0 @@
-name: web
-image: node:16-alpine
-command: yarn serve
-sync:
-  - .:/usr/src/app
-persistentVolume:
-  enabled: false

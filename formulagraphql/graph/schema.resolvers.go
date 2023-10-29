@@ -133,36 +133,38 @@ func (r *queryResolver) DriversSeasonalRecords(ctx context.Context, filter *mode
 			return nil, fmt.Errorf("decoding response: %w", err)
 		}
 
-		wg := sync.WaitGroup{}
-		for _, result := range rr.MRData.RaceTable.Races[0].Results {
-			wg.Add(1)
-			func(result raceresults.Results) {
-				defer wg.Done()
-				if drivers[result.Driver.DriverID] == nil {
-					drivers[result.Driver.DriverID] = &model.DriverGraph{
-						Records: []*model.Record{},
+		if len(rr.MRData.RaceTable.Races) != 0 {
+			wg := sync.WaitGroup{}
+			for _, result := range rr.MRData.RaceTable.Races[0].Results {
+				wg.Add(1)
+				func(round string, result raceresults.Results) {
+					defer wg.Done()
+					if drivers[result.Driver.DriverID] == nil {
+						drivers[result.Driver.DriverID] = &model.DriverGraph{
+							Records: []*model.Record{},
+						}
 					}
-				}
-				drivers[result.Driver.DriverID].Records = append(drivers[result.Driver.DriverID].Records, &model.Record{
-					Round:    &race.Round,
-					Points:   &result.Points,
-					Position: &result.Position,
-				})
-				if drivers[result.Driver.DriverID].Driver == nil {
-					drivers[result.Driver.DriverID].Driver = &model.Driver{
-						ID:          &result.Driver.DriverID,
-						Number:      &result.Driver.PermanentNumber,
-						Code:        &result.Driver.Code,
-						URL:         &result.Driver.URL,
-						GivenName:   &result.Driver.GivenName,
-						FamilyName:  &result.Driver.FamilyName,
-						DateOfBirth: &result.Driver.DateOfBirth,
-						Nationality: &result.Driver.Nationality,
+					drivers[result.Driver.DriverID].Records = append(drivers[result.Driver.DriverID].Records, &model.Record{
+						Round:    &round,
+						Points:   &result.Points,
+						Position: &result.Position,
+					})
+					if drivers[result.Driver.DriverID].Driver == nil {
+						drivers[result.Driver.DriverID].Driver = &model.Driver{
+							ID:          &result.Driver.DriverID,
+							Number:      &result.Driver.PermanentNumber,
+							Code:        &result.Driver.Code,
+							URL:         &result.Driver.URL,
+							GivenName:   &result.Driver.GivenName,
+							FamilyName:  &result.Driver.FamilyName,
+							DateOfBirth: &result.Driver.DateOfBirth,
+							Nationality: &result.Driver.Nationality,
+						}
 					}
-				}
-			}(result)
+				}(race.Round, result)
+			}
+			wg.Wait()
 		}
-		wg.Wait()
 	}
 
 	retDrivers := make([]*model.DriverGraph, 0)

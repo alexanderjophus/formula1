@@ -2,12 +2,16 @@ use dioxus::prelude::*;
 use dioxus_charts::LineChart;
 use graphql_client::{GraphQLQuery, Response};
 use log::info;
-use std::error::Error;
+use std::{
+    collections::{HashMap, HashSet},
+    error::Error,
+};
 
 use crate::footer;
 
 pub fn DriversComponent(cx: Scope) -> Element {
     let year = use_state(cx, || "current".to_string());
+    let compare_drivers = use_state(cx, || HashSet::<String>::new());
 
     cx.render(rsx! {
         div {
@@ -21,14 +25,15 @@ pub fn DriversComponent(cx: Scope) -> Element {
                 r#type: "text",
                 placeholder: "current",
                 oninput: move |event| {
+                    compare_drivers.set(HashSet::<String>::new());
                     year.set(event.value.to_string());
                 }
             }
             div {
                 display: "flex",
                 flex_direction: "row",
-                ShowDriverGraph { year: year },
-                ShowDrivers { year: year }
+                ShowDriverGraph { year: year, compare_drivers: compare_drivers },
+                ShowDrivers { year: year, compare_drivers: compare_drivers },
             }
         }
         footer::Footer {}
@@ -37,8 +42,8 @@ pub fn DriversComponent(cx: Scope) -> Element {
 
 #[derive(PartialEq, Props)]
 struct ShowDriverGraphProps<'a> {
-    // graph_data: &'a Vec<Option<drivers_graph::DriversGraphDriversSeasonalRecordsDrivers>>,
     year: &'a UseState<String>,
+    compare_drivers: &'a UseState<HashSet<String>>,
 }
 
 fn ShowDriverGraph<'a>(cx: Scope<'a, ShowDriverGraphProps<'a>>) -> Element {
@@ -50,17 +55,45 @@ fn ShowDriverGraph<'a>(cx: Scope<'a, ShowDriverGraphProps<'a>>) -> Element {
     });
 
     cx.render(match graph_future.value() {
-        Some(Ok((series, labels, series_labels))) => rsx! {
-            LineChart{
-                series: series,
-                labels: labels.to_vec(),
-                series_labels: series_labels.to_vec(),
-                padding_top: 30,
-                padding_left: 65,
-                padding_right: 80,
-                padding_bottom: 30,
+        Some(Ok((codes_to_series, labels))) => {
+            let (series, series_labels) = if cx.props.compare_drivers.get().len() > 0 {
+                (
+                    codes_to_series
+                        .iter()
+                        .filter(|(code, _)| cx.props.compare_drivers.contains(*code))
+                        .map(|(_, series)| series.to_vec())
+                        .collect::<Vec<Vec<f32>>>(),
+                    codes_to_series
+                        .iter()
+                        .filter(|(code, _)| cx.props.compare_drivers.contains(*code))
+                        .map(|(code, _)| code.to_string())
+                        .collect::<Vec<String>>(),
+                )
+            } else {
+                (
+                    codes_to_series
+                        .iter()
+                        .map(|(_, series)| series.to_vec())
+                        .collect::<Vec<Vec<f32>>>(),
+                    codes_to_series
+                        .iter()
+                        .map(|(code, _)| code.to_string())
+                        .collect::<Vec<String>>(),
+                )
+            };
+
+            rsx! {
+                LineChart{
+                    series: series,
+                    labels: labels.to_vec(),
+                    series_labels: series_labels.to_vec(),
+                    padding_top: 30,
+                    padding_left: 65,
+                    padding_right: 80,
+                    padding_bottom: 30,
+                }
             }
-        },
+        }
         Some(Err(_)) => rsx! {
             div {
                 "error"
@@ -77,6 +110,7 @@ fn ShowDriverGraph<'a>(cx: Scope<'a, ShowDriverGraphProps<'a>>) -> Element {
 #[derive(PartialEq, Props)]
 struct ShowDriversProps<'a> {
     year: &'a UseState<String>,
+    compare_drivers: &'a UseState<HashSet<String>>,
 }
 
 fn ShowDrivers<'a>(cx: Scope<'a, ShowDriversProps<'a>>) -> Element {
@@ -104,7 +138,7 @@ fn ShowDrivers<'a>(cx: Scope<'a, ShowDriversProps<'a>>) -> Element {
                     tbody {
                         for driver in drivers {
                             if let Some(driver) = driver {
-                                rsx! {ShowDriver { driver: driver }}
+                                rsx! {ShowDriver { driver: driver, compare_drivers: cx.props.compare_drivers }}
                             }
                         }
                     }
@@ -131,6 +165,7 @@ fn ShowDrivers<'a>(cx: Scope<'a, ShowDriversProps<'a>>) -> Element {
 #[derive(PartialEq, Props)]
 struct ShowDriverProps<'a> {
     driver: &'a drivers::DriversDriverStandingsDrivers,
+    compare_drivers: &'a UseState<HashSet<String>>,
 }
 
 fn ShowDriver<'a>(cx: Scope<'a, ShowDriverProps<'a>>) -> Element {
@@ -144,6 +179,15 @@ fn ShowDriver<'a>(cx: Scope<'a, ShowDriverProps<'a>>) -> Element {
             td {
                 input {
                     r#type: "checkbox",
+                    onchange: move |event: Event<FormData>| {
+                        let mut compare_drivers = cx.props.compare_drivers.get().clone();
+                        if event.value == "true" {
+                            compare_drivers.insert(driver_details.code.as_ref().expect("no code").to_string());
+                        } else {
+                            compare_drivers.remove(driver_details.code.as_ref().expect("no code"));
+                        }
+                        cx.props.compare_drivers.set(compare_drivers);
+                    }
                 }
             }
             td {
@@ -192,7 +236,7 @@ pub struct DriversGraph;
 
 async fn driver_graph(
     variables: drivers_graph::Variables,
-) -> Result<(Vec<Vec<f32>>, Vec<String>, Vec<String>), Box<dyn Error>> {
+) -> Result<(HashMap<String, Vec<f32>>, Vec<String>), Box<dyn Error>> {
     info!("variables: {:?}", variables);
     let request_body = DriversGraph::build_query(variables);
 
@@ -229,19 +273,24 @@ async fn driver_graph(
         .iter()
         .map(|driver| {
             let driver = driver.as_ref().expect("no driver");
-            let records = driver.records.as_ref().expect("no records");
+            let driver_details = driver.driver.as_ref().expect("no details for driver");
+            let code = driver_details.code.as_ref().expect("no code");
             let mut sum = 0.0;
-            records
+            let records = driver
+                .records
+                .as_ref()
+                .expect("no records")
                 .iter()
                 .map(|record| {
                     let record = record.as_ref().expect("no record");
                     let points = record.points.as_ref().expect("no points");
-                    sum += points.parse::<f32>().expect("points not a float");
+                    sum += points.parse::<f32>().expect("failed to parse points");
                     sum
                 })
-                .collect::<Vec<f32>>()
+                .collect::<Vec<f32>>();
+            (code.to_string(), records)
         })
-        .collect::<Vec<Vec<f32>>>();
+        .collect::<HashMap<String, Vec<f32>>>();
 
     let labels = drivers[0]
         .as_ref()
@@ -257,17 +306,7 @@ async fn driver_graph(
         })
         .collect::<Vec<String>>();
 
-    let series_labels = drivers
-        .iter()
-        .map(|driver| {
-            let driver = driver.as_ref().expect("no driver");
-            let driver_details = driver.driver.as_ref().expect("no details for driver");
-            let code = driver_details.code.as_ref().expect("no code");
-            format!("{}", code)
-        })
-        .collect::<Vec<String>>();
-
-    Ok((series, labels, series_labels))
+    Ok((series, labels))
 }
 
 #[derive(GraphQLQuery)]

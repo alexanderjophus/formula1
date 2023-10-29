@@ -135,3 +135,35 @@ jobs:
         run: |-
           docker tag $IMAGE_NAME:latest gcr.io/$PROJECT_ID/$IMAGE_NAME:latest 
           docker push gcr.io/$PROJECT_ID/$IMAGE_NAME:latest 
+
+  deploy-graphql:
+    needs: [ push-graphql-to-gcr ]
+    runs-on: ubuntu-latest #run this workflow on ubuntu instance
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - uses: 'actions/checkout@v3'
+
+      - name: Login to GCR
+        env:
+          PROJECT_ID: f1graph
+        uses: google-github-actions/setup-gcloud@v0.3.0 #checkouts GCR repo, so this workflow can access it
+        with:
+          service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }} #parse the value of repository secret called SERVICE_ACCOUNT_KEY that we have created earlier
+          project_id: ${{ env.PROJECT_ID }} #parse the value of env called PROJECT_ID
+          export_default_credentials: true
+
+      - id: 'deploy'
+        uses: 'google-github-actions/deploy-cloudrun@v1'
+        env: 
+          IMAGE_NAME: formulagraphql
+          PROJECT_ID: f1graph
+        with:
+          service: backend
+          image: gcr.io/f1graph/formulagraphql:latest
+          region: europe-west1
+
+      - name: 'Use output'
+        run: 'curl "${{ steps.deploy.outputs.url }}"'

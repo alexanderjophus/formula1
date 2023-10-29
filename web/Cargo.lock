@@ -294,7 +294,6 @@ dependencies = [
 [[package]]
 name = "dioxus-charts"
 version = "0.1.2"
-source = "git+https://github.com/alexanderjophus/dioxus-charts?branch=master#9052a784da72ecdaf52b6c3daee8b0cf4a7aaaa3"
 dependencies = [
  "dioxus",
  "log",

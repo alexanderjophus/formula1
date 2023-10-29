@@ -13,7 +13,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.18
+          go-version: 1.21
 
       - name: Test backend
         run: cd formulagraphql && go test -v ./...
@@ -28,7 +28,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.18
+          go-version: 1.21
 
       # docker login and push
       - name: Login to GitHub Container Registry
@@ -45,68 +45,47 @@ jobs:
           tags: ghcr.io/alexanderjophus/formulagraphql:latest
           file: formulagraphql/Dockerfile
 
-      - name: Build and push (web)
-        uses: docker/build-push-action@v2
-        with:
-          context: ./web
-          push: true
-          tags: ghcr.io/alexanderjophus/web:latest
-          file: web/Dockerfile
-
-  deploy-okteto:
+  deploy-graphql:
+    runs-on: ubuntu-latest
     needs: [ build-publish ]
-    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
     steps:
-    - name: checkout
-      uses: actions/checkout@master
+    - uses: 'actions/checkout@v3'
 
-    - uses: okteto/context@latest
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
       with:
-        token: ${{ secrets.OKTETO_TOKEN }}
+        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
 
-    - name: "Activate Namespace"
-      uses: okteto/namespace@latest
+    - id: 'deploy'
+      uses: 'google-github-actions/deploy-cloudrun@v1'
       with:
-        name: alexanderjophus
+        service: 'grapqhl-service'
+        image: 'gghcr.io/alexanderjophus/formulagraphql:latest'
 
-    - name: "Trigger the pipeline"
-      uses: okteto/pipeline@latest
-      with:
-        name: main
-        timeout: 8m
-
-  e2e-test:
-    needs: [ deploy-okteto ]
-    defaults:
-      run:
-        working-directory: e2e
-    env:
-      BASE_URL: https://webapp-alexanderjophus.cloud.okteto.net
-    timeout-minutes: 60
+  deploy-frontend:
     runs-on: ubuntu-latest
+    needs: [ unit-test ]
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: 1.18
-    - name: Run tests
-      run: go run test.go # should be replaced with a proper test framework
-
-  destroy-okteto:
-    needs: [ e2e-test ]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: okteto/context@latest
-      with:
-        token: ${{ secrets.OKTETO_TOKEN }}
-
-    - name: "Activate Namespace"
-      uses: okteto/namespace@latest
-      with:
-        name: alexanderjophus
-
-    - name: "Destroy the pipeline"
-      uses: okteto/destroy-pipeline@latest
-      with:
-        name: main
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+          target: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v1
+      - name: Install CLI
+        run: cargo install dioxus-cli --locked
+      - uses: actions/checkout@v2
+      - name: Build
+        run: cd web && dx build --release && cargo run --release
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.3
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: site # The folder the action should deploy.
+          target-folder: .
+          clean: false # don't scrub site

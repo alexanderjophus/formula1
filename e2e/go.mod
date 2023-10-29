@@ -1,6 +1,6 @@
 module github.com/alexanderjoseph/formula1/e2e
 
-go 1.19
+go 1.21
 
 require github.com/playwright-community/playwright-go v0.2000.1
 

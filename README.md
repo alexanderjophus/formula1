@@ -35,7 +35,7 @@ query {
 ### Frontend
 
 ```sh
-dx serve --port 8090
+GQL_ADDR=http:/localhost:8080 dx serve --port 8090
 ```
 
 Open a browser to [localhost](http://localhost:8090)

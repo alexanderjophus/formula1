@@ -1,13 +1,12 @@
 use dioxus::prelude::*;
 use dioxus_charts::LineChart;
 use graphql_client::{GraphQLQuery, Response};
-use log::info;
 use std::{
     collections::{HashMap, HashSet},
     error::Error,
 };
 
-use crate::footer;
+use crate::{footer, get_resp_body_from_gql};
 
 pub fn DriversComponent(cx: Scope) -> Element {
     let year = use_state(cx, || "current".to_string());
@@ -237,27 +236,9 @@ pub struct DriversGraph;
 async fn driver_graph(
     variables: drivers_graph::Variables,
 ) -> Result<(HashMap<String, Vec<f32>>, Vec<String>), Box<dyn Error>> {
-    info!("variables: {:?}", variables);
     let request_body = DriversGraph::build_query(variables);
-
-    let client = reqwest::Client::new();
-    let res = client
-        .post("http://localhost:8080/query")
-        .json(&request_body)
-        .send()
-        .await?;
-    let response_body: Response<drivers_graph::ResponseData> = res.json().await?;
-
-    info!("response_body: {:?}", response_body);
-
-    response_body.errors.iter().for_each(|e| {
-        info!("error: {:?}", e);
-    });
-    if let Some(errors) = response_body.errors {
-        if errors.len() > 0 {
-            return Err("error".into());
-        }
-    }
+    let response_body: Response<drivers_graph::ResponseData> =
+        get_resp_body_from_gql(&request_body).await.json().await?;
 
     let drivers = response_body
         .data
@@ -266,8 +247,6 @@ async fn driver_graph(
         .ok_or("missing driver standings")?
         .drivers
         .ok_or("missing drivers")?;
-
-    info!("drivers: {:?}", drivers);
 
     let series = drivers
         .iter()
@@ -322,13 +301,8 @@ async fn driver_standings(
 ) -> Result<Vec<Option<drivers::DriversDriverStandingsDrivers>>, Box<dyn Error>> {
     let request_body = Drivers::build_query(variables);
 
-    let client = reqwest::Client::new();
-    let res = client
-        .post("http://localhost:8080/query")
-        .json(&request_body)
-        .send()
-        .await?;
-    let response_body: Response<drivers::ResponseData> = res.json().await?;
+    let response_body: Response<drivers::ResponseData> =
+        get_resp_body_from_gql(&request_body).await.json().await?;
     Ok(response_body
         .data
         .ok_or("missing response data")?

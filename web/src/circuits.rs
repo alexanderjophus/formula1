@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use graphql_client::{GraphQLQuery, Response};
 use std::error::Error;
 
-use crate::footer;
+use crate::{footer, get_resp_body_from_gql};
 
 pub fn CircuitsComponent(cx: Scope) -> Element {
     let year = use_state(cx, || "current".to_string());
@@ -144,13 +144,8 @@ async fn perform_my_query(
     // this is the important line
     let request_body = Circuits::build_query(variables);
 
-    let client = reqwest::Client::new();
-    let res = client
-        .post("http://localhost:8080/query")
-        .json(&request_body)
-        .send()
-        .await?;
-    let response_body: Response<circuits::ResponseData> = res.json().await?;
+    let response_body: Response<circuits::ResponseData> =
+        get_resp_body_from_gql(&request_body).await.json().await?;
     Ok(response_body
         .data
         .ok_or("missing response data")?

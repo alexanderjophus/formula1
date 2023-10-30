@@ -1,4 +1,6 @@
 #![allow(non_snake_case)]
+use std::env;
+
 use dioxus::prelude::*;
 use dioxus_router::prelude::*;
 use log::LevelFilter;
@@ -11,6 +13,7 @@ mod drivers;
 use drivers::DriversComponent;
 mod home;
 use home::Home;
+use serde::Serialize;
 mod footer;
 
 fn main() {
@@ -81,4 +84,16 @@ fn PageNotFound(cx: Scope, _route: Vec<String>) -> Element {
         h1 { "Page not found" }
         p { "We are terribly sorry, but the page you requested doesn't exist." }
     }
+}
+
+pub async fn get_resp_body_from_gql<T: Serialize + ?Sized>(request_body: &T) -> reqwest::Response {
+    let gql_addr = env::var("GQL_ADDR").expect("GQL_ADDR not set");
+
+    let client = reqwest::Client::new();
+    client
+        .post(format!("{gql_addr}/query"))
+        .json(&request_body)
+        .send()
+        .await
+        .expect("failed to send request")
 }

@@ -1,6 +1,4 @@
 #![allow(non_snake_case)]
-use std::env;
-
 use dioxus::prelude::*;
 use dioxus_router::prelude::*;
 use log::LevelFilter;
@@ -87,7 +85,7 @@ fn PageNotFound(cx: Scope, _route: Vec<String>) -> Element {
 }
 
 pub async fn get_resp_body_from_gql<T: Serialize + ?Sized>(request_body: &T) -> reqwest::Response {
-    let gql_addr = env::var("GQL_ADDR").expect("GQL_ADDR not set");
+    let gql_addr = env!("GQL_ADDR");
 
     let client = reqwest::Client::new();
     client

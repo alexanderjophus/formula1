@@ -16,6 +16,8 @@ out_dir = "site"
 # HTML title tag content
 title = "Formula 1 GraphQL Experiment"
 
+base_path = "/f1graph-web"
+
 # include `assets` in web platform
 [web.resource]
 

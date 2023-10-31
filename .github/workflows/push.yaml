@@ -123,7 +123,7 @@ jobs:
     steps:
       - uses: 'actions/checkout@v3'
 
-      - name: Login to GCR
+      - name: Login to GCP
         env:
           PROJECT_ID: f1graph
         uses: google-github-actions/setup-gcloud@v0.3.0 #checkouts GCR repo, so this workflow can access it
@@ -164,10 +164,13 @@ jobs:
         env:
           GQL_ADDR: ${{needs.deploy-graphql.outputs.url}}
         run: cd web && dx build --release
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.2.3
+      - name: Login to GCP
+        env:
+          PROJECT_ID: f1graph
+        uses: google-github-actions/setup-gcloud@v0.3.0 #checkouts GCR repo, so this workflow can access it
         with:
-          branch: gh-pages
-          folder: web/site
-          target-folder: .
-          clean: false
+          service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }} #parse the value of repository secret called SERVICE_ACCOUNT_KEY that we have created earlier
+          project_id: ${{ env.PROJECT_ID }} #parse the value of env called PROJECT_ID
+          export_default_credentials: true
+      - name: deploy to gcs
+        run: gsutil -m rsync -d -c -r ./web/site gs://f1graph-web
